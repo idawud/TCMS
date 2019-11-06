@@ -1,6 +1,7 @@
 package io.turntabl.dataaccess;
 
 public class Client {
+
     private String name;
     private String address;
     private String telNumber;
@@ -38,4 +39,5 @@ public class Client {
                 ", email='" + email + '\'' +
                 '}';
     }
+
 }
