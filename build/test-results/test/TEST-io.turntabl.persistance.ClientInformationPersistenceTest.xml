@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.turntabl.persistance.ClientInformationPersistenceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-06T10:35:57" hostname="dawud-Aspire-7741" time="0.003">
-  <properties/>
-  <testcase name="store" classname="io.turntabl.persistance.ClientInformationPersistenceTest" time="0.003"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
