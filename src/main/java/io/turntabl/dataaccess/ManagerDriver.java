@@ -19,6 +19,6 @@ public class ManagerDriver {
         ));
 
         List<Client> clientsCaught = manager.findAllMatches(userName);
-        System.out.println(clientsCaught + " ");
+        System.out.println(clientsCaught + " here");
     }
 }
