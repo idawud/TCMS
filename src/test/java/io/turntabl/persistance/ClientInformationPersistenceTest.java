@@ -62,4 +62,64 @@ public class ClientInformationPersistenceTest {
                 .thenReturn(expected);
         assertEquals(expected, cip.retrieveAll());
     }
+
+    @Test
+    public void search_Empty(){
+        cip = new ClientInformationPersistence();
+        List<ClientData> expected = Arrays.asList();
+
+        when( cip.retrieveAll())
+                .thenReturn(expected);
+        assertEquals(expected, cip.retrieveAll());
+    }
+
+    @Test
+    public void search_NotEmpty_Single(){
+        cip = new ClientInformationPersistence();
+        List<ClientData> expected = Arrays.asList(
+                new ClientData("alex", "achimota-accra", "092768256", "alex@one.email")
+        );
+        when( cip.search("alex"))
+                .thenReturn(expected);
+        assertEquals(expected, cip.retrieveAll());
+    }
+
+    @Test
+    public void search_NotEmpty_Multiple(){
+        cip = new ClientInformationPersistence();
+        List<ClientData> expected = Arrays.asList(
+                new ClientData("alex", "st. johns -accra", "052768256", "pat@one.email"),
+                new ClientData("alex", "achimota-accra", "092768256", "alex@one.email")
+        );
+        when( cip.search("alex"))
+                .thenReturn(expected);
+        assertEquals(expected, cip.retrieveAll());
+    }
+
+    @Test
+    public void delete_ClientAvailable(){
+        cip = new ClientInformationPersistence();
+        when(cip.delete(23))
+                .thenReturn(true);
+        assertTrue(cip.delete(23));
+    }
+
+    @Test
+    public void delete_ClientNotAvailable(){
+        cip = new ClientInformationPersistence();
+        when(cip.delete(23))
+                .thenReturn(false);
+        assertTrue(cip.delete(23));
+    }
+
+    @Test
+    public void delete_FileNotAvailable(){
+        cip = new ClientInformationPersistence();
+        when(cip.delete(23))
+                .thenThrow(new FileNotFoundException());
+
+        boolean actual = cip.delete(23);
+        assertSame( new FileNotFoundException(), actual);
+    }
+
 }
