@@ -3,32 +3,23 @@ package io.turntabl.persistance;
 /**
  *
  */
-class ClientData {
+public class ClientData {
+    private int id;
     private String name;
     private String address;
     private String telephoneNumber;
     private String email;
 
-    public ClientData(String name, String address, String telephoneNumber, String email) {
+    public ClientData(int id, String name, String address, String telephoneNumber, String email) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.telephoneNumber = telephoneNumber;
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    String toCSV(){
+        return ( this.id + "," + this.name + "," +  this.address + ","  + this.telephoneNumber + "," + this.email + "\n" );
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 }
