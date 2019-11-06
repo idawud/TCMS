@@ -50,12 +50,21 @@ public class ManagerTest {
                 new Client("alex", "2334", "553472114", "john.erbynn@gmail.com")
         ));
 
-        List<Client> expected = manager.getClients().stream().filter(c -> c.getName() == "dawud").collect(Collectors.toList());
-
-//        List<String> expected = Arrays.asList("dawud 2334 553472114 john.erbynn@gmail.com");
-        //        System.out.println(expected);
-//        System.out.println(manager.findAllMarches("dawud"));
-        assertEquals(expected, manager.findAllMatches("dawud"));
+        assertEquals(Arrays.asList(), manager.findAllMatches("dawu"));
     }
+
+
+    @Test
+    public void findAllMarches_ManyMatches() {
+        Manager manager = new Manager(Arrays.asList(
+                new Client("dawud", "2334", "553472114", "john.erbynn@gmail.com"),
+                new Client("pk", "2334", "553472114", "john.erbynn@gmail.com"),
+                new Client("pk", "4444", "553472114", "john.erbynn@gmail.com"),
+                new Client("alex", "2334", "553472114", "john.erbynn@gmail.com")
+        ));
+        List<Client> expected = manager.getClients().stream().filter(c -> c.getName() == "pk").collect(Collectors.toList());
+        assertEquals(expected, manager.findAllMatches("pk"));
+    }
+
 }
 

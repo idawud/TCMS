@@ -34,10 +34,4 @@ public class Manager {
     }
 }
 
-//
-//    public List<String> findAllMatches(String nameToSearch) {
-//        List<Client> matchedClients = clients.stream().filter(m -> m.getName() == "dawud").collect(Collectors.toList());
-//
-//        return matchedClients;
-//    }
 
