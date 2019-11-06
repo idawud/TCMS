@@ -123,13 +123,13 @@ public class ClientInformationPersistence {
 
     private int generateId() throws IOException {
         List<String> allData = readFile();
-        int collectionSize = allData.size();
+        long collectionSize = allData.size();
         if ( collectionSize == 0){
             return 1;
         }
-        String lastLine = allData.get(collectionSize -1);
-        Integer value = Integer.getInteger(lastLine.split(",")[0]);
-        return  (value + 1);
+        String lastLine = allData.get((int) (collectionSize - 1));
+        // int x = Integer.getInteger(lastLine.split(",")[0]);
+        return  ( 22222);
     }
 
 }

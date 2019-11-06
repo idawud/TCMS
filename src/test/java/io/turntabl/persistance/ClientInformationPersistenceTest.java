@@ -31,7 +31,6 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void store_successful() throws IOException {
-        cip = new ClientInformationPersistence();
         when(cip.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
                 .thenReturn(true);
         assertTrue(cip.store("dawud", "achimota-accra", "052768256", "dawud@one.email"));
@@ -104,10 +103,9 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void delete_ClientNotAvailable() throws IOException {
-        cip = new ClientInformationPersistence();
         when(cip.delete(23))
                 .thenReturn(false);
-        assertTrue(cip.delete(23));
+        assertFalse(cip.delete(23));
     }
 
     @Test
