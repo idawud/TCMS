@@ -43,18 +43,15 @@ public class ClientInformationPersistenceTest {
     @Test
     public void retrieveAll_Empty(){
         cip = new ClientInformationPersistence();
-        List<ClientData> expected = Arrays.asList(
-                new ClientData("dawud", "achimota-accra", "022768256", "dawud@one.email"),
-                new ClientData("pat", "st. johns -accra", "052768256", "pat@one.email"),
-                new ClientData("alex", "achimota-accra", "092768256", "alex@one.email")
-        );
+        List<ClientData> expected = Arrays.asList();
+
         when( cip.retrieveAll())
                 .thenReturn(expected);
         assertEquals(expected, cip.retrieveAll());
     }
 
     @Test
-    public void retrieveAll_True(){
+    public void retrieveAll_NotEmpty(){
         cip = new ClientInformationPersistence();
         List<ClientData> expected = Arrays.asList(
                 new ClientData("dawud", "achimota-accra", "022768256", "dawud@one.email"),
