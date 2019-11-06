@@ -17,11 +17,12 @@ public class Manager {
     }
 
 
-    public List<String> getClientDetailsByNameSearch() {
-        return null;
-    }
+//    public List<String> getClientDetailsByNameSearch() {
+//        return null;
+//    }
 
-    public List<Client> findAllMarches(String nameToSearch){
+
+    public List<Client> findAllMatches(String nameToSearch){
         List<Client> matchedClient = new ArrayList<>();
         for (Client client :
                 clients) {
@@ -29,6 +30,7 @@ public class Manager {
                 matchedClient.add(client);
             }
         }
+        return matchedClient;
     }
 
 
