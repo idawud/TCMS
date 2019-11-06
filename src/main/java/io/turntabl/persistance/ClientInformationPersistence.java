@@ -62,7 +62,13 @@ public class ClientInformationPersistence {
         if ( split.length != 5){
             return new ClientData(0,"","", "","");
         }
-        int id = Integer.getInteger(split[0]);
+        int id;
+        try {
+            id = Integer.getInteger(split[0]);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            id = 1;
+        }
         return new ClientData(id, split[1], split[2], split[3], split[4]);
     }
 
@@ -85,20 +91,22 @@ public class ClientInformationPersistence {
     public boolean delete(int id) throws IOException {
         if ( fileIsReady()) {
             try (Stream<String> stream = Files.lines(FILEPATH)) {
-                List<ClientData> removed = stream
-                        .filter(line -> !Integer.getInteger(line.split(",")[0]).equals(id))
-                        .map(this::stringToClientData)
-                        .collect(Collectors.toList());
+                if (stream.count() > 0) {
+                    List<ClientData> removed = Files.lines(FILEPATH)
+                            .filter(line -> line.startsWith(Integer.toString(id)))
+                            .map(this::stringToClientData)
+                            .collect(Collectors.toList());
 
-                Files.delete(FILEPATH);
-                if ( fileIsReady() ){
-                    removed.forEach( clientData -> {
-                                try {
-                                    Files.write(FILEPATH, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            });
+                    Files.delete(FILEPATH);
+                    if (fileIsReady()) {
+                        removed.forEach(clientData -> {
+                            try {
+                                Files.write(FILEPATH, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
                 }
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
@@ -106,6 +114,11 @@ public class ClientInformationPersistence {
             }
         }
         return false;
+    }
+
+    private boolean matchesId(int id, String line) {
+        String s = line.split(",")[0];
+        return Integer.getInteger(s).equals(id);
     }
 
     private int generateId() throws IOException {
