@@ -5,7 +5,6 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @Desc Storing & Retrieving Client Information from a File
@@ -25,15 +24,10 @@ public class ClientInformationPersistence {
 
     private List<String> readFile() throws IOException {
         if ( fileIsReady()) {
-            try (Stream<String> stream = Files.lines(FILEPATH)) {
-                return stream
+            List<String> allLines = Files.readAllLines(FILEPATH);
+                return  allLines.stream()
                         .filter(line -> !line.isEmpty() && !line.equals("0,,,,"))
                         .collect(Collectors.toList());
-
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-                return new ArrayList<>();
-            }
         }
         return new ArrayList<>();
     }
@@ -42,12 +36,21 @@ public class ClientInformationPersistence {
     public boolean store(String name, String address, String telephoneNumber, String email) throws IOException {
         int id = generateId();
         ClientData clientData = new ClientData(id, name, address, telephoneNumber, email);
-        String csv = clientData.toCSV();
 
-        if ( fileIsReady()) {
-            Files.write(FILEPATH, csv.getBytes(), StandardOpenOption.APPEND);
+        if ( clientDoesNotExists(clientData)) {
+            String csv = clientData.toCSV();
+
+            if (fileIsReady()) {
+                Files.write(FILEPATH, csv.getBytes(), StandardOpenOption.APPEND);
+            }
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    private boolean clientDoesNotExists(ClientData clientData) throws IOException {
+        List<ClientData> allData = retrieveAll();
+        return ( allData.stream().noneMatch(clientData1 -> clientData1.equals(clientData)) );
     }
 
     public List<ClientData> retrieveAll() throws IOException {
@@ -62,13 +65,7 @@ public class ClientInformationPersistence {
         if ( split.length != 5){
             return new ClientData(0,"","", "","");
         }
-        int id;
-        try {
-            id = Integer.getInteger(split[0]);
-        }catch (Exception ex){
-            ex.printStackTrace();
-            id = 1;
-        }
+        int id = Integer.parseInt(split[0]);
         return new ClientData(id, split[1], split[2], split[3], split[4]);
     }
 
@@ -90,12 +87,13 @@ public class ClientInformationPersistence {
 
     public boolean delete(int id) throws IOException {
         if ( fileIsReady()) {
-            try (Stream<String> stream = Files.lines(FILEPATH)) {
-                if (stream.count() > 0) {
-                    List<ClientData> removed = Files.lines(FILEPATH)
-                            .filter(line -> line.startsWith(Integer.toString(id)))
-                            .map(this::stringToClientData)
-                            .collect(Collectors.toList());
+            List<String> allLines = Files.readAllLines(FILEPATH);
+                if (allLines.size() > 0) {
+                    List<ClientData> removed = readFile()
+                                                    .stream()
+                                                    .filter(line -> !isSameId(id, line))
+                                                    .map(this::stringToClientData)
+                                                    .collect(Collectors.toList());
 
                     Files.delete(FILEPATH);
                     if (fileIsReady()) {
@@ -108,28 +106,27 @@ public class ClientInformationPersistence {
                         });
                     }
                 }
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-                return false;
-            }
+                else {
+                    return false;
+                }
         }
         return false;
     }
 
-    private boolean matchesId(int id, String line) {
-        String s = line.split(",")[0];
-        return Integer.getInteger(s).equals(id);
+    private boolean isSameId(int id, String line) {
+        int x = Integer.parseInt(line.split(",")[0]);
+        return (x == id);
     }
 
     private int generateId() throws IOException {
         List<String> allData = readFile();
-        long collectionSize = allData.size();
+        int collectionSize = allData.size();
         if ( collectionSize == 0){
             return 1;
         }
-        String lastLine = allData.get((int) (collectionSize - 1));
-        // int x = Integer.getInteger(lastLine.split(",")[0]);
-        return  ( 22222);
+
+        String ints = allData.get(collectionSize - 1).split(",")[0];
+        return  ( Integer.parseInt(ints) +1);
     }
 
 }
