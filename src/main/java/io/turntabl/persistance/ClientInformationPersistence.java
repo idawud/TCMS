@@ -87,24 +87,9 @@ public class ClientInformationPersistence {
 
     public boolean delete(int id) throws IOException {
         if ( fileIsReady()) {
-            List<String> allLines = Files.readAllLines(FILEPATH);
-                if (allLines.size() > 0) {
-                    List<ClientData> removed = readFile()
-                                                    .stream()
-                                                    .filter(line -> !isSameId(id, line))
-                                                    .map(this::stringToClientData)
-                                                    .collect(Collectors.toList());
-
-                    Files.delete(FILEPATH);
-                    if (fileIsReady()) {
-                        removed.forEach(clientData -> {
-                            try {
-                                Files.write(FILEPATH, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
+                if (Files.readAllLines(FILEPATH).size() > 0) {
+                    List<ClientData> removed = filterClientDataOutById(id);
+                    writingFilteredClientDataToFile(removed);
                 }
                 else {
                     return false;
@@ -113,7 +98,28 @@ public class ClientInformationPersistence {
         return false;
     }
 
-    private boolean isSameId(int id, String line) {
+    private void writingFilteredClientDataToFile(List<ClientData> removed) throws IOException {
+        Files.delete(FILEPATH);
+        if (fileIsReady()) {
+            removed.forEach(clientData -> {
+                try {
+                    Files.write(FILEPATH, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
+
+    private List<ClientData> filterClientDataOutById(int id) throws IOException {
+        return readFile()
+                    .stream()
+                    .filter(line -> !hasSameId(id, line))
+                    .map(this::stringToClientData)
+                    .collect(Collectors.toList());
+    }
+
+    private boolean hasSameId(int id, String line) {
         int x = Integer.parseInt(line.split(",")[0]);
         return (x == id);
     }
