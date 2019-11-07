@@ -11,15 +11,16 @@ public class TCMS {
         // cip.search("babon").forEach(clientData -> System.out.print(clientData.toCSV()));
         // cip.delete(3);
         // cip.retrieveAll().forEach(clientData -> System.out.println(clientData.toCSV()));
-        
+
         TCMS tcms = new TCMS();
+        MainMenu.welcome();
         while (true) {
             tcms.run();
         }
     }
 
     private void run() {
-            MainMenu.show();
+            MainMenu.menuListing();
             int option = MainMenu.getUserMenuSelection();
             if (MainMenu.isAnOptionOnMenu(option)){
                 MainMenu.operation(option);
