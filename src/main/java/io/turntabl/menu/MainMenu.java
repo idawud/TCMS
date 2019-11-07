@@ -30,7 +30,7 @@ public class MainMenu {
 
     private static void entry() throws IOException {
         if (DataEntry.toSave()){
-            System.out.println("Client Added Successfully!!!");
+            System.out.println("Client Added " + AnsiConsole.GREEN + "Successfully!!!" + AnsiConsole.RESET);
         }
         else{
             System.out.println("Something went wrong! \n Data was not stored!");
@@ -55,7 +55,7 @@ public class MainMenu {
 
 
     public static void menuListing() {
-        System.out.println("##############\t\t ENTER: ");
+        System.out.println("##############\t\t ENTER: \t\t##############");
         System.out.println("\t\t\t 1. Enter New Client");
         System.out.println("\t\t\t 2. View All Client");
         System.out.println("\t\t\t 3. Search for a Client");
