@@ -1,6 +1,7 @@
 package io.turntabl.dataaccess;
 
 import io.turntabl.dataentry.DataEntry;
+import io.turntabl.menu.AnsiConsole;
 import io.turntabl.menu.Printer;
 import io.turntabl.persistance.ClientData;
 import io.turntabl.persistance.ClientInformationPersistence;
@@ -43,16 +44,16 @@ public class DataAccess {
             records.forEach(Printer::printClientCardWithId);
             int id = getId();
             if (cip.delete(id)) {
-                System.out.println("Client Record Deleted Successfully!");
+                System.out.println(AnsiConsole.GREEN + "Client Record Deleted Successfully!" + AnsiConsole.RESET);
             } else {
-                System.out.println("Oops! Client with id " + id + " does not exist");
+                System.out.println(AnsiConsole.RED + "Oops! Client with id " + id + " does not exist" + AnsiConsole.RESET);
             }
         }
     }
 
     private static int getId(){
         Scanner input = new Scanner(System.in);
-        System.out.println("\nEnter the ID to be deleted: ");
+        System.out.print("\nEnter the ID to be deleted: ");
         int id = -9999;
         try {
             id = input.nextInt();
