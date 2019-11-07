@@ -1,9 +1,8 @@
-package io.turntabl.entering_details;
+package io.turntabl.dataentry;
 
 import org.junit.Test;
 
-public class Client_info_entryTest {
-
+public class DataEntryTest {
 
         @Test
         public void getInput() {
