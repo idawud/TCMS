@@ -2,9 +2,6 @@ package io.turntabl.persistance;
 
 import java.util.Objects;
 
-/**
- *
- */
 public class ClientData {
     private int id;
     private String name;
