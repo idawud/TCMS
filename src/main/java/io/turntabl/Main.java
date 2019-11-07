@@ -3,7 +3,7 @@ package io.turntabl;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class TCMS {
+public class Main {
     private static Scanner InputStream;
 
     @Override
