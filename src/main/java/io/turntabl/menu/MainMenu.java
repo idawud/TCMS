@@ -30,7 +30,7 @@ public class MainMenu {
     }
 
     public static int getUserMenuSelection(){
-        System.out.println(">>>> ");
+        System.out.print(">>>> ");
         Scanner input = new Scanner(System.in);
         int option;
         try {
@@ -41,12 +41,8 @@ public class MainMenu {
         return option;
     }
 
-    public static void show( ) {
-        welcome();
-        menuListing();
-    }
 
-    private static void menuListing() {
+    public static void menuListing() {
         System.out.println("##############\t\t ENTER: ");
         System.out.println("\t\t\t 1. Enter New Client");
         System.out.println("\t\t\t 2. View All Client");
@@ -55,7 +51,7 @@ public class MainMenu {
         System.out.println("\t\t\t 5. Quit this Application");
     }
 
-    private static void welcome() {
+    public static void welcome() {
         System.out.println("*****************************************************************************");
         System.out.println("***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***");
         System.out.println("*****************************************************************************");
