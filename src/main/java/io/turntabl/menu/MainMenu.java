@@ -24,16 +24,16 @@ public class MainMenu {
             case 5:
                 System.exit(0);
             default:
-                System.out.println( AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
+                System.out.println( AnsiConsole.RED + "\nYou Entered an InCorrect Option!" + AnsiConsole.RESET);
         }
     }
 
     private static void entry() throws IOException {
         if (DataEntry.toSave()){
-            System.out.println(AnsiConsole.GREEN + "Client Added Successfully!!!" + AnsiConsole.RESET);
+            System.out.println(AnsiConsole.GREEN + "\nClient Added Successfully!!!" + AnsiConsole.RESET);
         }
         else{
-            System.out.println(AnsiConsole.RED +"Something went wrong! \n Data was not stored!" + AnsiConsole.RESET);
+            System.out.println(AnsiConsole.RED +"\nSomething went wrong! \nData was not stored!" + AnsiConsole.RESET);
         }
     }
 
