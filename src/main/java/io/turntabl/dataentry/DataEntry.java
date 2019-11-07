@@ -29,7 +29,7 @@ public class DataEntry {
         return Arrays.asList(name, address, telephoneNumber, email);
     }
 
-    private static String getStringInput(String s) {
+    public static String getStringInput(String s) {
         System.out.println(s);
         return ( INPUT.nextLine() );
     }

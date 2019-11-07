@@ -1,5 +1,6 @@
 package io.turntabl.menu;
 
+import io.turntabl.dataaccess.DataAccess;
 import io.turntabl.dataentry.DataEntry;
 
 import java.io.IOException;
@@ -12,13 +13,13 @@ public class MainMenu {
                 entry();
                 break;
             case 2:
-                System.out.println("Viewing all client");
+                DataAccess.showAllClientsRecords();
                 break;
             case 3:
-                System.out.println("Searching for client");
+                DataAccess.showSearchedClientsRecords();
                 break;
             case 4:
-                System.out.println("Deleting a client");
+                DataAccess.deleteClientRecord();
                 break;
             case 5:
                 System.exit(0);
