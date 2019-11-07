@@ -80,7 +80,7 @@ public class ClientInformationPersistence {
     public List<ClientData> search(String name) throws IOException {
         List<String> allData = readFile();
         return allData.stream()
-                .filter(s -> (s.split(",")[1]).toLowerCase().equals(name.toLowerCase()))
+                .filter(s -> (s.split(",")[1]).toLowerCase().trim().contains(name.toLowerCase().trim()))
                 .map(this::stringToClientData)
                 .collect(Collectors.toList());
     }

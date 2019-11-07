@@ -42,6 +42,7 @@ public class DataAccess {
             Printer.recordNotFound();
         }else {
             records.forEach(Printer::printClientCardWithId);
+            // todo: check id in collection
             int id = getId();
             if (cip.delete(id)) {
                 System.out.println(AnsiConsole.GREEN + "Client Record Deleted Successfully!" + AnsiConsole.RESET);
