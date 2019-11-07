@@ -30,7 +30,7 @@ public class DataEntry {
     }
 
     public static String getStringInput(String s) {
-        System.out.println(s);
+        System.out.print(s);
         return ( INPUT.nextLine() );
     }
 }

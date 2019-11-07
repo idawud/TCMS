@@ -1,5 +1,6 @@
 package io.turntabl;
 
+import io.turntabl.menu.AnsiConsole;
 import io.turntabl.menu.MainMenu;
 import io.turntabl.persistance.ClientInformationPersistence;
 
@@ -24,7 +25,7 @@ public class TCMS {
                 MainMenu.operation(option);
             }
             else {
-                System.out.println("You Entered an InCorrect Option!");
+                System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
             }
     }
 

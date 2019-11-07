@@ -4,10 +4,23 @@ plugins {
     //id 'distribution'
 }
 
+version = '1.0'
 group 'io.turntabl'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'io.turntabl.TCMS'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
 repositories {
     mavenCentral()

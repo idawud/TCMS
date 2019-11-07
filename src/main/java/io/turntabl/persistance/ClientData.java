@@ -24,7 +24,7 @@ public class ClientData {
     }
 
     public List<String> toList(){
-        return Arrays.asList(name, address, telephoneNumber, email);
+        return Arrays.asList(name, address, telephoneNumber, email, String.valueOf(id));
     }
 
     @Override
