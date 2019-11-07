@@ -90,6 +90,7 @@ public class ClientInformationPersistence {
                 if (Files.readAllLines(FILEPATH).size() > 0) {
                     List<ClientData> removed = filterClientDataOutById(id);
                     writingFilteredClientDataToFile(removed);
+                    return true;
                 }
                 else {
                     return false;
