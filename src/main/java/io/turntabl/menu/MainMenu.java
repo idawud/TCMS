@@ -1,5 +1,6 @@
 package io.turntabl.menu;
 
+import io.turntabl.dataaccess.DataAccess;
 import io.turntabl.dataentry.DataEntry;
 
 import java.io.IOException;
@@ -12,27 +13,27 @@ public class MainMenu {
                 entry();
                 break;
             case 2:
-                System.out.println("Viewing all client");
+                DataAccess.showAllClientsRecords();
                 break;
             case 3:
-                System.out.println("Searching for client");
+                DataAccess.showSearchedClientsRecords();
                 break;
             case 4:
-                System.out.println("Deleting a client");
+                DataAccess.deleteClientRecord();
                 break;
             case 5:
                 System.exit(0);
             default:
-                System.out.println("You Entered an InCorrect Option!");
+                System.out.println( AnsiConsole.RED + "\nYou Entered an InCorrect Option!" + AnsiConsole.RESET);
         }
     }
 
     private static void entry() throws IOException {
         if (DataEntry.toSave()){
-            System.out.println("Client Added Successfully!!!");
+            System.out.println(AnsiConsole.GREEN + "\nClient Added Successfully!!!" + AnsiConsole.RESET);
         }
         else{
-            System.out.println("Something went wrong! \n Data was not stored!");
+            System.out.println(AnsiConsole.RED +"\nSomething went wrong! \nData was not stored!" + AnsiConsole.RESET);
         }
     }
 
@@ -41,7 +42,7 @@ public class MainMenu {
     }
 
     public static int getUserMenuSelection(){
-        System.out.println(">>>> ");
+        System.out.print(">>>> ");
         Scanner input = new Scanner(System.in);
         int option;
         try {
@@ -54,17 +55,18 @@ public class MainMenu {
 
 
     public static void menuListing() {
-        System.out.println("##############\t\t ENTER: ");
-        System.out.println("\t\t\t 1. Enter New Client");
-        System.out.println("\t\t\t 2. View All Client");
-        System.out.println("\t\t\t 3. Search for a Client");
-        System.out.println("\t\t\t 4. Delete a Client");
-        System.out.println("\t\t\t 5. Quit this Application");
+        System.out.println("\n##############\t ENTER: \t##################");
+        System.out.println("##\t 1. Enter New Client");
+        System.out.println("##\t 2. View All Client");
+        System.out.println("##\t 3. Search for a Client");
+        System.out.println("##\t 4. Delete a Client");
+        System.out.println("##\t 5. Quit this Application");
+        System.out.println("####################################################");
     }
 
     public static void welcome() {
-        System.out.println("*****************************************************************************");
-        System.out.println("***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***");
-        System.out.println("*****************************************************************************");
+        System.out.println(AnsiConsole.YELLOW +"*****************************************************************************\n"
+                        + "***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***\n"
+                        + "*****************************************************************************" + AnsiConsole.RESET);
     }
 }

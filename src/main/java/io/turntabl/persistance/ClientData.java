@@ -1,5 +1,7 @@
 package io.turntabl.persistance;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class ClientData {
@@ -17,8 +19,12 @@ public class ClientData {
         this.email = email;
     }
 
-    public String toCSV(){
+    String toCSV(){
         return ( this.id + "," + this.name + "," +  this.address + ","  + this.telephoneNumber + "," + this.email + "\n" );
+    }
+
+    public List<String> toList(){
+        return Arrays.asList(name, address, telephoneNumber, email, String.valueOf(id));
     }
 
     @Override

@@ -29,8 +29,8 @@ public class DataEntry {
         return Arrays.asList(name, address, telephoneNumber, email);
     }
 
-    private static String getStringInput(String s) {
-        System.out.println(s);
+    public static String getStringInput(String s) {
+        System.out.print(s);
         return ( INPUT.nextLine() );
     }
 }
