@@ -40,6 +40,7 @@ public class DataAccess {
         if (records.size() == 0){
             Printer.recordNotFound();
         }else {
+            records.forEach(Printer::printClientCardWithId);
             int id = getId();
             if (cip.delete(id)) {
                 System.out.println("Client Record Deleted Successfully!");

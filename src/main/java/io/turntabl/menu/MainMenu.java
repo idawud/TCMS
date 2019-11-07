@@ -55,7 +55,7 @@ public class MainMenu {
 
 
     public static void menuListing() {
-        System.out.println("##############\t\t ENTER: ");
+        System.out.println("\n##############\t\t ENTER: \t\t###############");
         System.out.println("\t\t\t 1. Enter New Client");
         System.out.println("\t\t\t 2. View All Client");
         System.out.println("\t\t\t 3. Search for a Client");
@@ -64,6 +64,13 @@ public class MainMenu {
     }
 
     public static void welcome() {
+        for (int codePoint = 0x1F600; codePoint <= 0x1F64F;) {
+            System.out.print(Character.toChars(codePoint));
+            codePoint++;
+            if (codePoint % 16 == 0) {
+                System.out.println();
+            }
+        }
         System.out.println("*****************************************************************************");
         System.out.println("***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***");
         System.out.println("*****************************************************************************");
