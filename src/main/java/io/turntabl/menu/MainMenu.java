@@ -9,12 +9,7 @@ public class MainMenu {
     public static void operation(int option) throws IOException {
         switch (option){
             case 1:
-                if (DataEntry.toSave()){
-                    System.out.println("Client Added Successfully!!!");
-                }
-                else{
-                    System.out.println("Something went wrong! \n Data was not stored!");
-                }
+                entry();
                 break;
             case 2:
                 System.out.println("Viewing all client");
@@ -26,10 +21,18 @@ public class MainMenu {
                 System.out.println("Deleting a client");
                 break;
             case 5:
-                System.out.println("Bye Bye!\n");
                 System.exit(0);
             default:
                 System.out.println("You Entered an InCorrect Option!");
+        }
+    }
+
+    private static void entry() throws IOException {
+        if (DataEntry.toSave()){
+            System.out.println("Client Added Successfully!!!");
+        }
+        else{
+            System.out.println("Something went wrong! \n Data was not stored!");
         }
     }
 
@@ -38,7 +41,7 @@ public class MainMenu {
     }
 
     public static int getUserMenuSelection(){
-        System.out.print(">>>> ");
+        System.out.println(">>>> ");
         Scanner input = new Scanner(System.in);
         int option;
         try {

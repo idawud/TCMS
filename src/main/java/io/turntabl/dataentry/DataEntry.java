@@ -31,11 +31,6 @@ public class DataEntry {
 
     private static String getStringInput(String s) {
         System.out.println(s);
-        String input = INPUT.nextLine();
-        while (input.isEmpty()){
-            System.out.print("Invalid!! Retry Enter " +s);
-            input =INPUT.nextLine();
-        }
-        return input;
+        return ( INPUT.nextLine() );
     }
 }
