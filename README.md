@@ -1,3 +1,67 @@
+# Turntabl Client Management System (TCSM)
+#####TCM is a management system which essentially provides a central place where turntabl manages its clients.
+the system stores the following information about clients:
+1. name 
+2. address
+3. telephone number 
+4. email address
+
+
+## System Funcitonalities
+The system enable the manager to :
+- enter new client details
+- view and access their all details 
+- search for clients by their name
+- delete clients 
+- restore deleted clients
+
+## System Operation
+Basically the system operate on the following processes:
+- displays welcome message and menu option pop-up
+- requests user input option
+- process selected option
+- generates result
+
+## Software Implementation Tools
+- Intellij 
+- Travis CI
+- Mockito
+- Java Core
+- JUnit
+
+## Project Link
+
+    ```
+       github.com/joewzy/WaterQualityMS.git
+    ```
+
+## Contributors
+- Ismail Dawud [send mail](dawud.ismail@turntabl.io) 
+- Patricia Agyekum [send mail](patricia.agyekum@turntabl.io) 
+- Alexander Owusu [send mail](alex.owusu@turntabl.io) 
+- John K. Erbynn [send mail](john.erbynn@turntabl.io) 
+
+
+## Acknoledgement
+   - Project Manager, Sam Moorhouse
+   
+## Deployment 
+This extension is a project to improve our software development skills. Any suggestions or tips are welcome.
+Thank you.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # TCMS
 Turntabl Client Management System (TCMS)
 
