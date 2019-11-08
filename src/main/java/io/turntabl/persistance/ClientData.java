@@ -38,4 +38,7 @@ public class ClientData {
                 Objects.equals(email, that.email);
     }
 
+    public int getId() {
+        return id;
+    }
 }

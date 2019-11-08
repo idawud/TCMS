@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
  */
 public class ClientInformationPersistence {
     private static final Path FILEPATH = Paths.get("./resources/clientsInformation.txt");
+    private static final Path ARCHIVEPATH = Paths.get("./resources/archive.txt");
 
     private boolean fileIsReady() throws IOException {
         if (!Files.isDirectory(Paths.get("./resources"))){
@@ -18,6 +20,16 @@ public class ClientInformationPersistence {
         }
         if ( Files.notExists(FILEPATH)) {
             Files.createFile(FILEPATH);
+        }
+        return true;
+    }
+
+    private boolean archiveFileIsReady() throws IOException {
+        if (!Files.isDirectory(Paths.get("./resources"))){
+            Files.createDirectory(Paths.get("./resources"));
+        }
+        if ( Files.notExists(ARCHIVEPATH)) {
+            Files.createFile(ARCHIVEPATH);
         }
         return true;
     }
@@ -85,6 +97,7 @@ public class ClientInformationPersistence {
                 .collect(Collectors.toList());
     }
 
+    // todo: add archive func
     public boolean delete(int id) throws IOException {
         if ( fileIsReady()) {
                 if (Files.readAllLines(FILEPATH).size() > 0) {
@@ -118,6 +131,27 @@ public class ClientInformationPersistence {
                     .filter(line -> !hasSameId(id, line))
                     .map(this::stringToClientData)
                     .collect(Collectors.toList());
+    }
+
+    private void archiveDeletedClientData(List<ClientData> archives) throws IOException {
+        Files.delete(ARCHIVEPATH);
+        if (archiveFileIsReady()) {
+            archives.forEach(clientData -> {
+                try {
+                    Files.write(ARCHIVEPATH, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
+
+    private Optional<ClientData> removedClientData(int id) throws IOException {
+        return readFile()
+                .stream()
+                .filter(line -> hasSameId(id, line))
+                .map(this::stringToClientData)
+                .findFirst();
     }
 
     private boolean hasSameId(int id, String line) {

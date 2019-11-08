@@ -9,6 +9,7 @@ import io.turntabl.persistance.ClientInformationPersistence;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DataAccess {
 
@@ -42,26 +43,40 @@ public class DataAccess {
             Printer.recordNotFound();
         }else {
             records.forEach(Printer::printClientCardWithId);
-            // todo: check id in collection
-            int id = getId();
-            if (cip.delete(id)) {
-                System.out.println(AnsiConsole.GREEN + "Client Record Deleted Successfully!" + AnsiConsole.RESET);
+            List<Integer> searchedIds = records.stream()
+                                                .map(ClientData::getId)
+                                                .collect(Collectors.toList());
+            int id = getId("\nEnter the ID to be deleted: ");
+
+            if (isValidId(id, searchedIds)) {
+                if (cip.delete(id)) {
+                    System.out.println(AnsiConsole.GREEN + "Client Record Deleted Successfully!" + AnsiConsole.RESET);
+                } else {
+                    System.out.println(AnsiConsole.RED + "Oops! Client with id " + id + " does not exist" + AnsiConsole.RESET);
+                }
             } else {
-                System.out.println(AnsiConsole.RED + "Oops! Client with id " + id + " does not exist" + AnsiConsole.RESET);
+                System.out.println(AnsiConsole.RED + "You entered an invalid id" + AnsiConsole.RESET);
             }
         }
     }
 
-    private static int getId(){
+    private static boolean isValidId(int id, List<Integer> numbers) {
+        return numbers.contains(id);
+    }
+
+    private static int getId(String s){
         Scanner input = new Scanner(System.in);
-        System.out.print("\nEnter the ID to be deleted: ");
-        int id = -9999;
+        System.out.print(s);
+        int id = -99999;
         try {
             id = input.nextInt();
         }catch (Exception ignored){
         }
         return id;
     }
-    
 
+
+    // todo: implement me
+    public static void recoverDeleteClientRecord() {
+    }
 }
