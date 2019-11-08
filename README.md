@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# TCMS
-Turntabl Client Management System (TCMS)
-=======
+
 # Turntabl Client Management System (TCSM)
 ##### TCM is a management system which essentially provides a central place where turntabl manages its clients.
 the system stores the following information about clients:
