@@ -35,8 +35,7 @@ And you have java installed. <br>
 If you don't, type this in your terminal to install the latest version: 
 
 ## Usage
-#### sudo apt-get install openjdk-8-jre <br>
-
+####  sudo apt-get install openjdk-8-jre <br>
 Get the tcms unto your machine: <br>
 put it in a recognised location, that you can easily navigate to, for instance, /Desktop.<br> 
 Open your terminal<br>
