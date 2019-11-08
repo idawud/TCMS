@@ -58,7 +58,7 @@ to see the significant changes that have been made (if you want to).
 ## Project Link
 
     ```
-       github.com/joewzy/WaterQualityMS.git
+       https://github.com/idawud/TCMS.git
     ```
 
 ## Contributors
@@ -71,17 +71,13 @@ to see the significant changes that have been made (if you want to).
 ## Acknoledgement
    - Project Manager, Sam Moorhouse
    
-## Deployment 
-This extension is a project to improve our software development skills. Any suggestions or tips are welcome.
-Thank you.
-
-
-
-
-
+## License
+https://github.com/idawud/TCMS/blob/master/LINSENSE.txt
 
 ## Contributing...
 Pull requests are welcome.
 
-## License
-https://github.com/idawud/TCMS/blob/master/LINSENSE.txt
+## Deployment 
+This extension is a project to improve our software development skills. Any suggestions or tips are welcome.
+Thank you.
+
