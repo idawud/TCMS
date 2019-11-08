@@ -1,4 +1,3 @@
-
 # Turntabl Client Management System (TCSM)
 ##### TCM is a management system which essentially provides a central place where turntabl manages its clients.
 the system stores the following information about clients:
@@ -11,16 +10,16 @@ the system stores the following information about clients:
 ## System Funcitonalities
 The system enable the manager to :
 - enter new client details
-- view and access their all details 
+- view and access all the details stored previously 
 - search for clients by their name
 - delete clients 
 - restore deleted clients
 
 ## System Operation
-Basically the system operate on the following processes:
-- displays welcome message and menu option pop-up
-- requests user input option
-- process selected option
+Basically, the system operates on the following processes:
+- displays a welcome message and a menu on start-up
+- requests user input
+- processes selected option
 - generates result
 
 ## Software Implementation Tools
@@ -30,44 +29,40 @@ Basically the system operate on the following processes:
 - Java Core
 - JUnit
 
-## Requirements & Usage
-Make sure your terminal is working properly.
+## Requirements
+Make sure your terminal is working properly.<br>
 And you have java installed. <br> 
 If you don't, type this in your terminal to install the latest version: 
-```
-sudo apt-get install openjdk-8-jre <br>
-```
-...to get the tcms unto your machine: <br>
-put it in a recognised location, that you can easily navigate to, for instance, /Desktop.<br> 
+#### sudo apt-get install openjdk-8-jre <br>
+
+## Usage
+
+Get the tcms folder unto your machine: <br>
+put it in a recognised location, that you can easily navigate to, for instance, Desktop.<br>
+
 Open your terminal<br>
 
+Navigate to the 'tcms' location from your current location. If it's on your desktop, use the command
+#### cd Desktop/tcms/ <br>
 
-2. Navigate to the 'tcms' location from your current location. If it's on your desktop, use the command
-```
-   cd Desktop/tcms/ <br>
-```
-3. Check to see if you have the versions directory in it using this command:
-```
-   ls
-```
-4. Navigate into the "versions" directory using:
-```
-   cd versions/
-```
-5. You can now run the latest version of the application using this command:
-```
-java -jar tcms.1.0.1.jar 
-```
-6.You can check on the previous version using:
-```
-java -jar tcms.1.0.jar
-```
-...to see the significant changes that have been made (if you want to).
+Check to see if you have the a zipped file called versions in it using this command:
+#### ls
+
+Unzip it using the command:
+#### unzip versions.zip
+
+Navigate into the "versions" directory using:
+#### cd versions/
+
+You can now run the latest version of the application using this command:
+#### java -jar tcms.1.0.0.jar 
 
 
 ## Project Link
-[Github](dawud.ismail@turntabl.io) 
 
+    ```
+       https://github.com/idawud/TCMS.git
+    ```
 
 ## Contributors
 - Ismail Dawud [send mail](dawud.ismail@turntabl.io) 
@@ -89,4 +84,3 @@ Pull requests are welcome.
 This extension is a project to improve our software development skills. Any suggestions or tips are welcome.
 Thank you.
 
->>>>>>> 4ff13a39ae555a19b95cd0fbe8d5fbb90db6165c
