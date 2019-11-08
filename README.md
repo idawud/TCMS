@@ -1,5 +1,5 @@
 # Turntabl Client Management System (TCSM)
-#####TCM is a management system which essentially provides a central place where turntabl manages its clients.
+##### TCM is a management system which essentially provides a central place where turntabl manages its clients.
 the system stores the following information about clients:
 1. name 
 2. address
