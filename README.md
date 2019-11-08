@@ -58,8 +58,15 @@ You can now run the latest version of the application using this command:
 #### java -jar tcms.1.0.0.jar 
 
 
-## Project Link
 
+## Running with Docker
+- git clone https://github.com/idawud/TCMS.git
+- install gradle,docker and java
+- run ./gradlew build
+- docker build -t tcms:v1.0 .
+- docker run -a stdin -a stdout -i -t tcms:v1.0 /bin/bash
+
+## Project Link
     ```
        https://github.com/idawud/TCMS.git
     ```
