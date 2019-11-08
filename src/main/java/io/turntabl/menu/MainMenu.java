@@ -55,22 +55,14 @@ public class MainMenu {
 
 
     public static void menuListing() {
-<<<<<<< HEAD
+
         System.out.println("##############\t\t ENTER: \t\t##############");
         System.out.println("\t\t\t 1. Enter New Client");
         System.out.println("\t\t\t 2. View All Client");
         System.out.println("\t\t\t 3. Search for a Client");
         System.out.println("\t\t\t 4. Delete a Client");
         System.out.println("\t\t\t 5. Quit this Application");
-=======
-        System.out.println("\n##############\t ENTER: \t##################");
-        System.out.println("##\t 1. Enter New Client");
-        System.out.println("##\t 2. View All Client");
-        System.out.println("##\t 3. Search for a Client");
-        System.out.println("##\t 4. Delete a Client");
-        System.out.println("##\t 5. Quit this Application");
-        System.out.println("####################################################");
->>>>>>> 9ba134048ee51e0ed7427fbedb99dffb0dcb5207
+
     }
 
     public static void welcome() {
