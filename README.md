@@ -1,5 +1,9 @@
 # TCMS
 //Turntabl Client Management System (TCMS)
+
+## Requirements
+Make sure your terminal is working properly.
+
 Open the 'tcms' directory
 Navigate into the "versions" directory
 Right-click the white space and choose "run in terminal" to be able to run it with the necessary resources associated with it.
