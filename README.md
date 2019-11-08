@@ -62,10 +62,8 @@ to see the significant changes that have been made (if you want to).
 
 
 ## Project Link
+[Github](dawud.ismail@turntabl.io) 
 
-    ```
-       https://github.com/idawud/TCMS.git
-    ```
 
 ## Contributors
 - Ismail Dawud [send mail](dawud.ismail@turntabl.io) 
