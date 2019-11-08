@@ -62,14 +62,9 @@ You can now run the latest version of the application using this command:
 ## Running with Docker
 - git clone https://github.com/idawud/TCMS.git
 - install gradle,docker and java
-- run ./gradlew build
+- run ./gradlew fatJar
 - docker build -t tcms:v1.0 .
 - docker run -a stdin -a stdout -i -t tcms:v1.0 /bin/bash
-
-## Project Link
-    ```
-       https://github.com/idawud/TCMS.git
-    ```
 
 ## Contributors
 - Ismail Dawud [send mail](dawud.ismail@turntabl.io) 
