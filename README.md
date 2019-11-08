@@ -82,7 +82,7 @@ You can now run the latest version of the application using this command:
 
 
 ## Acknoledgement
-   - Project Manager, Sam Moorhouse
+   - Project Manager, Sam Moorhouse, [email](sam@turntabl.io)
    
 ## License
 https://github.com/idawud/TCMS/blob/master/LINSENSE.txt
