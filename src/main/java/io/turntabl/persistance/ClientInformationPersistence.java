@@ -34,9 +34,9 @@ public class ClientInformationPersistence {
         return true;
     }
 
-    private List<String> readFile() throws IOException {
+    private List<String> readFile(Path path) throws IOException {
         if ( fileIsReady()) {
-            List<String> allLines = Files.readAllLines(FILEPATH);
+            List<String> allLines = Files.readAllLines(path);
                 return  allLines.stream()
                         .filter(line -> !line.isEmpty() && !line.equals("0,,,,"))
                         .collect(Collectors.toList());
@@ -66,7 +66,7 @@ public class ClientInformationPersistence {
     }
 
     public List<ClientData> retrieveAll() throws IOException {
-        List<String> allData = readFile();
+        List<String> allData = readFile(FILEPATH);
         return allData.stream()
                 .map(this::stringToClientData)
                 .collect(Collectors.toList());
@@ -90,19 +90,27 @@ public class ClientInformationPersistence {
     }
 
     public List<ClientData> search(String name) throws IOException {
-        List<String> allData = readFile();
+        List<String> allData = readFile(FILEPATH);
         return allData.stream()
                 .filter(s -> (s.split(",")[1]).toLowerCase().trim().contains(name.toLowerCase().trim()))
                 .map(this::stringToClientData)
                 .collect(Collectors.toList());
     }
 
-    // todo: add archive func
     public boolean delete(int id) throws IOException {
         if ( fileIsReady()) {
                 if (Files.readAllLines(FILEPATH).size() > 0) {
-                    List<ClientData> removed = filterClientDataOutById(id);
-                    writingFilteredClientDataToFile(removed);
+                    List<ClientData> updatedRecord = filterClientDataOutById(id);
+                    Optional<ClientData> removed = removedClientData(id);
+
+                    writingFilteredClientDataToFile(updatedRecord);
+                    removed.ifPresent(archive -> {
+                        try {
+                            archiveDeletedClientData(archive);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                     return true;
                 }
                 else {
@@ -126,17 +134,24 @@ public class ClientInformationPersistence {
     }
 
     private List<ClientData> filterClientDataOutById(int id) throws IOException {
-        return readFile()
+        return readFile(FILEPATH)
                     .stream()
                     .filter(line -> !hasSameId(id, line))
                     .map(this::stringToClientData)
                     .collect(Collectors.toList());
     }
 
-    private void archiveDeletedClientData(List<ClientData> archives) throws IOException {
+    private void archiveDeletedClientData(ClientData archive) throws IOException {
+        List<ClientData> dataList = readFile(ARCHIVEPATH)
+                                            .stream()
+                                            .map(this::stringToClientData)
+                                            .collect(Collectors.toList());
+        dataList.add(archive);
+        // todo: add a comparator to sort before writing to file
+        // dataList.sort(new );
         Files.delete(ARCHIVEPATH);
         if (archiveFileIsReady()) {
-            archives.forEach(clientData -> {
+            dataList.forEach(clientData -> {
                 try {
                     Files.write(ARCHIVEPATH, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
                 } catch (IOException e) {
@@ -147,7 +162,7 @@ public class ClientInformationPersistence {
     }
 
     private Optional<ClientData> removedClientData(int id) throws IOException {
-        return readFile()
+        return readFile(FILEPATH)
                 .stream()
                 .filter(line -> hasSameId(id, line))
                 .map(this::stringToClientData)
@@ -160,7 +175,7 @@ public class ClientInformationPersistence {
     }
 
     private int generateId() throws IOException {
-        List<String> allData = readFile();
+        List<String> allData = readFile(FILEPATH);
         int collectionSize = allData.size();
         if ( collectionSize == 0){
             return 1;
