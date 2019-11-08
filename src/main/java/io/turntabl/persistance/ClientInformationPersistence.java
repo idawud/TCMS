@@ -3,6 +3,7 @@ package io.turntabl.persistance;
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,8 +12,8 @@ import java.util.stream.Collectors;
  * @Desc Storing & Retrieving Client Information from a File
  */
 public class ClientInformationPersistence {
-    private static final Path FILEPATH = Paths.get("./resources/clientsInformation.txt");
-    private static final Path ARCHIVEPATH = Paths.get("./resources/archive.txt");
+    public static final Path FILEPATH = Paths.get("./resources/clientsInformation.txt");
+    public static final Path ARCHIVEPATH = Paths.get("./resources/archive.txt");
 
     private boolean fileIsReady() throws IOException {
         if (!Files.isDirectory(Paths.get("./resources"))){
@@ -20,13 +21,6 @@ public class ClientInformationPersistence {
         }
         if ( Files.notExists(FILEPATH)) {
             Files.createFile(FILEPATH);
-        }
-        return true;
-    }
-
-    private boolean archiveFileIsReady() throws IOException {
-        if (!Files.isDirectory(Paths.get("./resources"))){
-            Files.createDirectory(Paths.get("./resources"));
         }
         if ( Files.notExists(ARCHIVEPATH)) {
             Files.createFile(ARCHIVEPATH);
@@ -89,8 +83,8 @@ public class ClientInformationPersistence {
         return ( split[0] + "," + split[1] + "," + split[2] + "," + split[3] + "," + split[4] + "\n");
     }
 
-    public List<ClientData> search(String name) throws IOException {
-        List<String> allData = readFile(FILEPATH);
+    public List<ClientData> search(String name, Path path) throws IOException {
+        List<String> allData = readFile(path);
         return allData.stream()
                 .filter(s -> (s.split(",")[1]).toLowerCase().trim().contains(name.toLowerCase().trim()))
                 .map(this::stringToClientData)
@@ -100,13 +94,13 @@ public class ClientInformationPersistence {
     public boolean delete(int id) throws IOException {
         if ( fileIsReady()) {
                 if (Files.readAllLines(FILEPATH).size() > 0) {
-                    List<ClientData> updatedRecord = filterClientDataOutById(id);
-                    Optional<ClientData> removed = removedClientData(id);
+                    List<ClientData> updatedRecord = filterClientDataOutById(id, FILEPATH);
+                    Optional<ClientData> removed = removedClientData(id, FILEPATH);
 
-                    writingFilteredClientDataToFile(updatedRecord);
+                    writingFilteredClientDataToFile(updatedRecord, FILEPATH);
                     removed.ifPresent(archive -> {
                         try {
-                            archiveDeletedClientData(archive);
+                            moveClientTo(archive, ARCHIVEPATH);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -120,12 +114,12 @@ public class ClientInformationPersistence {
         return false;
     }
 
-    private void writingFilteredClientDataToFile(List<ClientData> removed) throws IOException {
-        Files.delete(FILEPATH);
+    private void writingFilteredClientDataToFile(List<ClientData> removed, Path path) throws IOException {
+        Files.delete(path);
         if (fileIsReady()) {
             removed.forEach(clientData -> {
                 try {
-                    Files.write(FILEPATH, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
+                    Files.write(path, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -133,36 +127,38 @@ public class ClientInformationPersistence {
         }
     }
 
-    private List<ClientData> filterClientDataOutById(int id) throws IOException {
-        return readFile(FILEPATH)
+    private List<ClientData> filterClientDataOutById(int id, Path path) throws IOException {
+        return readFile(path)
                     .stream()
                     .filter(line -> !hasSameId(id, line))
                     .map(this::stringToClientData)
                     .collect(Collectors.toList());
     }
 
-    private void archiveDeletedClientData(ClientData archive) throws IOException {
-        List<ClientData> dataList = readFile(ARCHIVEPATH)
-                                            .stream()
-                                            .map(this::stringToClientData)
-                                            .collect(Collectors.toList());
-        dataList.add(archive);
-        // todo: add a comparator to sort before writing to file
-        // dataList.sort(new );
-        Files.delete(ARCHIVEPATH);
-        if (archiveFileIsReady()) {
-            dataList.forEach(clientData -> {
-                try {
-                    Files.write(ARCHIVEPATH, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+    private void moveClientTo(ClientData archive, Path path) throws IOException {
+        if (fileIsReady()) {
+            List<ClientData> dataList = readFile(path)
+                    .stream()
+                    .map(this::stringToClientData)
+                    .collect(Collectors.toList());
+            dataList.add(archive);
+            dataList.sort(Comparator.comparing(ClientData::toCSV));
+
+            Files.delete(path);
+            if (fileIsReady()) {
+                dataList.forEach(clientData -> {
+                    try {
+                        Files.write(path, clientDataToCsvString(clientData).getBytes(), StandardOpenOption.APPEND);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
         }
     }
 
-    private Optional<ClientData> removedClientData(int id) throws IOException {
-        return readFile(FILEPATH)
+    private Optional<ClientData> removedClientData(int id, Path path) throws IOException {
+        return readFile(path)
                 .stream()
                 .filter(line -> hasSameId(id, line))
                 .map(this::stringToClientData)
@@ -185,4 +181,20 @@ public class ClientInformationPersistence {
         return  ( Integer.parseInt(ints) +1);
     }
 
+    public boolean recover(int id) throws IOException {
+        if (fileIsReady()){
+            List<ClientData> updatedRecord = filterClientDataOutById(id, ARCHIVEPATH);
+            Optional<ClientData> removed = removedClientData(id, ARCHIVEPATH);
+            writingFilteredClientDataToFile(updatedRecord, ARCHIVEPATH);
+
+            removed.ifPresent(archive -> {
+                try {
+                    moveClientTo(archive, FILEPATH);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+        return false;
+    }
 }
