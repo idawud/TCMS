@@ -9,14 +9,20 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class ClientInformationPersistenceTest {
+
+    public static final Path FILEPATH = Paths.get("./resources/clientsInformation.txt");
+    public static final Path ARCHIVEPATH = Paths.get("./resources/archive.txt");
 
     @Rule
     public final ExpectedException exception = ExpectedException.none();
@@ -68,9 +74,9 @@ public class ClientInformationPersistenceTest {
     public void search_Empty() throws IOException {
         List<ClientData> expected = Arrays.asList();
 
-        when( cip.search("asdf"))
+        when( cip.search("asdf", FILEPATH))
                 .thenReturn(expected);
-        assertEquals(expected, cip.search("asdf"));
+        assertEquals(expected, cip.search("asdf", FILEPATH));
     }
 
     @Test
@@ -78,9 +84,9 @@ public class ClientInformationPersistenceTest {
         List<ClientData> expected = Arrays.asList(
                 new ClientData(1 ,"alex", "achimota-accra", "092768256", "alex@one.email")
         );
-        when( cip.search("alex"))
+        when( cip.search("alex", FILEPATH))
                 .thenReturn(expected);
-        assertEquals(expected, cip.search("alex"));
+        assertEquals(expected, cip.search("alex", FILEPATH));
     }
 
     @Test
@@ -89,32 +95,40 @@ public class ClientInformationPersistenceTest {
                 new ClientData(1, "alex", "st. johns -accra", "052768256", "pat@one.email"),
                 new ClientData(2, "alex", "achimota-accra", "092768256", "alex@one.email")
         );
-        when( cip.search("alex"))
+        when( cip.search("alex", FILEPATH))
                 .thenReturn(expected);
-        assertEquals(expected, cip.search("alex"));
+        assertEquals(expected, cip.search("alex", FILEPATH));
     }
 
     @Test
     public void delete_ClientAvailable() throws IOException {
-        when(cip.delete(23))
+        when(cip.moveRecord(23, FILEPATH, ARCHIVEPATH))
                 .thenReturn(true);
-        assertTrue(cip.delete(23));
+        assertTrue(cip.moveRecord(23, FILEPATH, ARCHIVEPATH));
     }
 
     @Test
     public void delete_ClientNotAvailable() throws IOException {
-        when(cip.delete(23))
+        when(cip.moveRecord(23, FILEPATH, ARCHIVEPATH))
                 .thenReturn(false);
-        assertFalse(cip.delete(23));
+        assertFalse(cip.moveRecord(23, FILEPATH, ARCHIVEPATH));
     }
 
     @Test
     public void delete_FileNotAvailable() throws IOException {
-        when(cip.delete(23))
+        when(cip.moveRecord(23, FILEPATH, ARCHIVEPATH))
                 .thenThrow(new FileNotFoundException());
 
         exception.expect(FileNotFoundException.class);
-        cip.delete(23);
+        cip.moveRecord(23, FILEPATH, ARCHIVEPATH);
     }
+
+    @Test
+    public void recover_ClientAvailable() throws IOException {
+        when(cip.moveRecord(23, FILEPATH, ARCHIVEPATH))
+                .thenReturn(true);
+        assertTrue(cip.moveRecord(23, FILEPATH, ARCHIVEPATH));
+    }
+
 
 }

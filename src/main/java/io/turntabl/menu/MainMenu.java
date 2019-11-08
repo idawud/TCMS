@@ -22,6 +22,9 @@ public class MainMenu {
                 DataAccess.deleteClientRecord();
                 break;
             case 5:
+                DataAccess.recoverDeleteClientRecord();
+                break;
+            case 6:
                 System.exit(0);
             default:
                 System.out.println( AnsiConsole.RED + "\nYou Entered an InCorrect Option!" + AnsiConsole.RESET);
@@ -38,7 +41,7 @@ public class MainMenu {
     }
 
     public static boolean isAnOptionOnMenu(int option){
-        return option >= 1 && option <= 5;
+        return option >= 1 && option <= 6;
     }
 
     public static int getUserMenuSelection(){
@@ -60,7 +63,8 @@ public class MainMenu {
         System.out.println("##\t 2. View All Client");
         System.out.println("##\t 3. Search for a Client");
         System.out.println("##\t 4. Delete a Client");
-        System.out.println("##\t 5. Quit this Application");
+        System.out.println("##\t 5. Undo Delete");
+        System.out.println("##\t 6. Quit this Application");
         System.out.println("####################################################");
     }
 
