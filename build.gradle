@@ -11,6 +11,7 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 //create a single Jar with all dependencies
+
 task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Gradle Jar File Example',
@@ -20,6 +21,16 @@ task fatJar(type: Jar) {
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': 'Turntabl Client Management System',
+                'Implementation-Version': version,
+                'Main-Class': 'io.turntabl.TCMS'
+        )
+    }
 }
 
 repositories {

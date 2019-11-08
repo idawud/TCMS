@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class ClientInformationPersistence {
     public static final Path FILEPATH = Paths.get("./resources/clientsInformation.txt");
     public static final Path ARCHIVEPATH = Paths.get("./resources/archive.txt");
+    public static final Path IDPATH = Paths.get("./resources/id.txt");
 
     private boolean fileIsReady() throws IOException {
         if (!Files.isDirectory(Paths.get("./resources"))){
@@ -171,14 +172,20 @@ public class ClientInformationPersistence {
     }
 
     private int generateId() throws IOException {
-        List<String> allData = readFile(FILEPATH);
-        int collectionSize = allData.size();
-        if ( collectionSize == 0){
+        if ( Files.notExists(IDPATH)) {
+            Files.createFile(IDPATH);
+            Files.write(IDPATH, String.valueOf(0).getBytes(), StandardOpenOption.WRITE);
+        }
+
+        List<String> allLines = Files.readAllLines(IDPATH);
+        if ( allLines.size() > 1){
             return 1;
         }
 
-        String ints = allData.get(collectionSize - 1).split(",")[0];
-        return  ( Integer.parseInt(ints) +1);
+        String ints = allLines.get(0).trim();
+        int value = Integer.parseInt(ints) + 1;
+        Files.write(IDPATH, String.valueOf(value).getBytes(), StandardOpenOption.WRITE);
+        return  value;
     }
 
 }
