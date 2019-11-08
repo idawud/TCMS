@@ -49,7 +49,7 @@ public class DataAccess {
             int id = getId("\nEnter the ID to be deleted: ");
 
             if (isValidId(id, searchedIds)) {
-                if (cip.delete(id)) {
+                if (cip.moveRecord(id, ClientInformationPersistence.FILEPATH, ClientInformationPersistence.ARCHIVEPATH)) {
                     System.out.println(AnsiConsole.GREEN + "\nClient Record Deleted Successfully!" + AnsiConsole.RESET);
                 } else {
                     System.out.println(AnsiConsole.RED + "Oops! Client with id " + id + " does not exist" + AnsiConsole.RESET);
@@ -90,7 +90,7 @@ public class DataAccess {
                             .collect(Collectors.toList());
             int id = getId("\nEnter the ID to be recovered: ");
             if (isValidId(id, searchedIds)) {
-                if (cip.recover(id)) {
+                if (cip.moveRecord(id, ClientInformationPersistence.ARCHIVEPATH, ClientInformationPersistence.FILEPATH)){
                     System.out.println(AnsiConsole.GREEN + "\nClient Record Recovered Successfully!" + AnsiConsole.RESET);
                 } else {
                     System.out.println(AnsiConsole.RED + "Oops! Client with id " + id + " does not exist" + AnsiConsole.RESET);

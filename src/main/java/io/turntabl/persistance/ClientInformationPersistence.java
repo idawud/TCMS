@@ -91,16 +91,16 @@ public class ClientInformationPersistence {
                 .collect(Collectors.toList());
     }
 
-    public boolean delete(int id) throws IOException {
+    public boolean moveRecord(int id, Path fromPath, Path toPath) throws IOException {
         if ( fileIsReady()) {
-                if (Files.readAllLines(FILEPATH).size() > 0) {
-                    List<ClientData> updatedRecord = filterClientDataOutById(id, FILEPATH);
-                    Optional<ClientData> removed = removedClientData(id, FILEPATH);
+                if (Files.readAllLines(fromPath).size() > 0) {
+                    List<ClientData> updatedRecord = filterClientDataOutById(id, fromPath);
+                    Optional<ClientData> removed = removedClientData(id, fromPath);
 
-                    writingFilteredClientDataToFile(updatedRecord, FILEPATH);
+                    writingFilteredClientDataToFile(updatedRecord, fromPath);
                     removed.ifPresent(archive -> {
                         try {
-                            moveClientTo(archive, ARCHIVEPATH);
+                            moveClientTo(archive, toPath);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -181,20 +181,4 @@ public class ClientInformationPersistence {
         return  ( Integer.parseInt(ints) +1);
     }
 
-    public boolean recover(int id) throws IOException {
-        if (fileIsReady()){
-            List<ClientData> updatedRecord = filterClientDataOutById(id, ARCHIVEPATH);
-            Optional<ClientData> removed = removedClientData(id, ARCHIVEPATH);
-            writingFilteredClientDataToFile(updatedRecord, ARCHIVEPATH);
-
-            removed.ifPresent(archive -> {
-                try {
-                    moveClientTo(archive, FILEPATH);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-        return false;
-    }
 }

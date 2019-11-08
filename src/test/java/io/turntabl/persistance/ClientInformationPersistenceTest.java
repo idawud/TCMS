@@ -96,25 +96,25 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void delete_ClientAvailable() throws IOException {
-        when(cip.delete(23))
+        when(cip.moveRecord(23))
                 .thenReturn(true);
-        assertTrue(cip.delete(23));
+        assertTrue(cip.moveRecord(23));
     }
 
     @Test
     public void delete_ClientNotAvailable() throws IOException {
-        when(cip.delete(23))
+        when(cip.moveRecord(23))
                 .thenReturn(false);
-        assertFalse(cip.delete(23));
+        assertFalse(cip.moveRecord(23));
     }
 
     @Test
     public void delete_FileNotAvailable() throws IOException {
-        when(cip.delete(23))
+        when(cip.moveRecord(23))
                 .thenThrow(new FileNotFoundException());
 
         exception.expect(FileNotFoundException.class);
-        cip.delete(23);
+        cip.moveRecord(23);
     }
 
 }
