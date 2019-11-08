@@ -43,28 +43,35 @@ put it in a recognised location, that you can easily navigate to, for instance, 
 Open your terminal<br>
 
 Navigate to the 'tcms' location from your current location. If it's on your desktop, use the command
-#### cd Desktop/tcms/ <br>
-
+```
+   cd Desktop/tcms/ <br>
+```
 Check to see if you have the a zipped file called versions in it using this command:
-#### ls
-
+```
+   ls
+```
 Unzip it using the command:
-#### unzip versions.zip
-
+```
+   unzip versions.zip
+```
 Navigate into the "versions" directory using:
-#### cd versions/
-
+```
+   cd versions/
+```
 You can now run the latest version of the application using this command:
-#### java -jar tcms.1.0.0.jar 
-
+```
+java -jar tcms.1.0.0.jar 
+```
 
 
 ## Running with Docker
 - git clone https://github.com/idawud/TCMS.git
 - install gradle,docker and java
-- run ./gradlew fatJar
-- docker build -t tcms:v1.0 .
-- docker run -a stdin -a stdout -i -t tcms:v1.0 /bin/bash
+- run 
+```./gradlew fatJar
+   docker build -t tcms:v1.0 .
+   docker run -a stdin -a stdout -i -t tcms:v1.0 /bin/bash
+```
 
 ## Contributors
 - Ismail Dawud [send mail](dawud.ismail@turntabl.io) 
