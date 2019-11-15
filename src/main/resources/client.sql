@@ -31,6 +31,6 @@ create table clients IF NOT EXIST(
     email varchar(200) not mull
 );
 
-insert into clients(client_name, address, tel_no, email) values ("Thonny Gaddis", "Mile 7 st, Achimota, Accra", "thonny@gmail.com");
-insert into clients(client_name, address, tel_no, email) values ("Thom Gaddis", "Taifa st, Achimota, Accra", "thomson@gmail.com");
+insert into clients(client_name, address, tel_no, email) values ('Thonny Gaddis', 'Mile 7 st, Achimota, Accra', 'thonny@gmail.com');
+insert into clients(client_name, address, tel_no, email) values ('Thom Gaddis', 'Taifa st, Achimota, Accra', 'thomson@gmail.com');
 
