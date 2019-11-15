@@ -2,6 +2,7 @@ package io.turntabl.dataaccess;
 
 import io.turntabl.persistance.DBConnection;
 
+import java.net.IDN;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -23,21 +23,7 @@ public class DBConnection {
         return DriverManager.getConnection(url, username, password);
     }
 
-    public DBConnection(){
-
-    }
-
-    public void setup(Statement statement) throws IOException {
-        Files.readAllLines(Path.of("clientData.sql")).forEach(
-                s -> {
-                    try {
-                        statement.execute(s);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-        );
-    }
+    public DBConnection(){ }
 
     public boolean store(String name, String address, String tel_num, String email) throws SQLException, ClassNotFoundException {
         String queryString = "INSERT INTO clients (client_name, address, tel_num, email) " +
