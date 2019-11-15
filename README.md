@@ -1,18 +1,11 @@
 # Turntabl Client management System (TCSM)
-#####TCM is a management essentially provides a central place where turntabl manages its clients.
+#####TCM is a management system which essentially provides a central place where turntabl manages its clients.
 the system stores the following information about clients:
 1. name 
 2. address
 3. telephone number 
 4. email address
 
-
-
-open the 'tcms' directory
-navigate into the "versions" directory
-right-click the white space and choose "run in terminal" to be able to run it with the necessary resources associated with it.
-your terminal will open.
-type java -jar tcms.1.0.1.jar to run the latest version of the application.
 
 ## System funcitonalities
 the system enable the manager to :
