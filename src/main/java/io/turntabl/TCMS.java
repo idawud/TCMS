@@ -2,13 +2,14 @@ package io.turntabl;
 
 import io.turntabl.menu.AnsiConsole;
 import io.turntabl.menu.MainMenu;
-import io.turntabl.persistance.ClientInformationPersistence;
+import io.turntabl.persistance.DBConnection;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class TCMS {
-    public static void main(String[] args) throws IOException {
-        ClientInformationPersistence cip = new ClientInformationPersistence();
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        DBConnection dbConnection = new DBConnection();
 
         TCMS tcms = new TCMS();
         MainMenu.welcome();
@@ -18,7 +19,7 @@ public class TCMS {
         }
     }
 
-    private void run() throws IOException {
+    private void run() throws SQLException, ClassNotFoundException {
             MainMenu.menuListing();
             int option = MainMenu.getUserMenuSelection();
             if (MainMenu.isAnOptionOnMenu(option)){
