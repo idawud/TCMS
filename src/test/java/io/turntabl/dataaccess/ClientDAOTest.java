@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,13 +20,24 @@ public class ClientDAOTest {
     private static final String USERNAME = "";
     private static final String PASSWORD = "";
 
+    private void setup(Statement statement) throws IOException {
+        Files.readAllLines(Path.of("clientData.sql")).forEach(
+                s -> {
+                    try {
+                        statement.execute(s);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
+    }
+
     @Before
     public void setup() throws SQLException, ClassNotFoundException, IOException {
         Connection connection = DBConnection.connect(URL, USERNAME, PASSWORD);
         Statement statement = connection.createStatement();
         clientDAO = new ClientDAO();
-        DBConnection setup = new DBConnection();
-        setup.setup(statement);
+        setup(statement);
     }
 
 
