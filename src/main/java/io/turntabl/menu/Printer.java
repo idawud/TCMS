@@ -7,25 +7,23 @@ import java.util.List;
 
 public class Printer {
     public static void printClientCard(Client clientData){
-       List<String> record = clientData.toList();
         System.out.println("***************************************************************************");
         System.out.println(
-                  AnsiConsole.WHITE_BOLD + "** Name:      \t" + AnsiConsole.RESET + AnsiConsole.GREEN + record.get(0)+ '\n'
-                + AnsiConsole.WHITE_BOLD + "** Email:     \t" + AnsiConsole.RESET + AnsiConsole.BLUE + record.get(3) + AnsiConsole.RESET + '\n'
-                + AnsiConsole.WHITE_BOLD + "** Telephone: \t" + AnsiConsole.RESET + AnsiConsole.PURPLE + record.get(2) + AnsiConsole.RESET + '\n'
-                + AnsiConsole.WHITE_BOLD + "** Address:   \t" + AnsiConsole.RESET + AnsiConsole.CYAN + record.get(1)+ AnsiConsole.RESET );
+                  AnsiConsole.WHITE_BOLD + "** Name:      \t" + AnsiConsole.RESET + AnsiConsole.GREEN + clientData.getName()+ '\n'
+                + AnsiConsole.WHITE_BOLD + "** Email:     \t" + AnsiConsole.RESET + AnsiConsole.BLUE + clientData.getEmail() + AnsiConsole.RESET + '\n'
+                + AnsiConsole.WHITE_BOLD + "** Telephone: \t" + AnsiConsole.RESET + AnsiConsole.PURPLE + clientData.getTelephoneNumber() + AnsiConsole.RESET + '\n'
+                + AnsiConsole.WHITE_BOLD + "** Address:   \t" + AnsiConsole.RESET + AnsiConsole.CYAN + clientData.getAddress() + AnsiConsole.RESET );
         System.out.println("***************************************************************************");
     }
 
     public static void printClientCardWithId(Client clientData){
-        List<String> record = clientData.toList();
         System.out.println("***************************************************************************");
         System.out.println(
-                          AnsiConsole.WHITE_BOLD + "** Id:        \t" + AnsiConsole.RESET + AnsiConsole.YELLOW + record.get(4)+ '\n'
-                        + AnsiConsole.WHITE_BOLD + "** Name:      \t" + AnsiConsole.RESET + AnsiConsole.GREEN + record.get(0)+ '\n'
-                        + AnsiConsole.WHITE_BOLD + "** Email:     \t" + AnsiConsole.RESET + AnsiConsole.BLUE + record.get(3) + AnsiConsole.RESET + '\n'
-                        + AnsiConsole.WHITE_BOLD + "** Telephone: \t" + AnsiConsole.RESET + AnsiConsole.PURPLE + record.get(2) + AnsiConsole.RESET + '\n'
-                        + AnsiConsole.WHITE_BOLD + "** Address:   \t" + AnsiConsole.RESET + AnsiConsole.CYAN + record.get(1)+ AnsiConsole.RESET );
+                          AnsiConsole.WHITE_BOLD + "** Id:        \t" + AnsiConsole.RESET + AnsiConsole.YELLOW + clientData.getId()+ '\n'
+                        + AnsiConsole.WHITE_BOLD + "** Name:      \t" + AnsiConsole.RESET + AnsiConsole.GREEN + clientData.getName() + '\n'
+                        + AnsiConsole.WHITE_BOLD + "** Email:     \t" + AnsiConsole.RESET + AnsiConsole.BLUE + clientData.getEmail() + AnsiConsole.RESET + '\n'
+                        + AnsiConsole.WHITE_BOLD + "** Telephone: \t" + AnsiConsole.RESET + AnsiConsole.PURPLE + clientData.getTelephoneNumber() + AnsiConsole.RESET + '\n'
+                        + AnsiConsole.WHITE_BOLD + "** Address:   \t" + AnsiConsole.RESET + AnsiConsole.CYAN + clientData.getAddress() + AnsiConsole.RESET );
         System.out.println("***************************************************************************");
     }
 

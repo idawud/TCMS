@@ -1,6 +1,5 @@
 package io.turntabl.persistance;
 
-import io.turntabl.dataaccess.Client;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,14 +7,9 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
@@ -30,7 +24,7 @@ public class ClientInformationPersistenceTest {
     public final ExpectedException exception = ExpectedException.none();
 
     @Mock
-    DBConnection cip = new DBConnection();
+    DBConnection dbConnection = new DBConnection();
 
     @Before
     public void setup() {
@@ -39,18 +33,18 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void store_successful() throws SQLException, ClassNotFoundException {
-        when(cip.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
+        when(dbConnection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
                 .thenReturn(true);
-        assertTrue(cip.store("dawud", "achimota-accra", "052768256", "dawud@one.email"));
+        assertTrue(dbConnection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"));
     }
 
     @Test
     public void store_unsuccessfulThrowsException() throws SQLException, ClassNotFoundException {
-        when(cip.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
-                .thenThrow(new FileNotFoundException());
+        when(dbConnection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
+                .thenThrow(new SQLException());
 
-        exception.expect(FileNotFoundException.class);
-        cip.store("dawud", "achimota-accra", "052768256", "dawud@one.email");
+        exception.expect(SQLException.class);
+        dbConnection.store("dawud", "achimota-accra", "052768256", "dawud@one.email");
     }
 
 }
