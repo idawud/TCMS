@@ -9,12 +9,12 @@ import java.sql.SQLException;
  * @Desc Storing & Retrieving Client Information from a db
  */
 public class DBConnection {
-    private static final String URL = "JDBC";
-    private static final String USERNAME = "dawud-ismail";
-    private static final String PASSWORD = "turntabl";
+    private static final String URL = "jdbc:h2:~/test";
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
 
     public static Connection connect() throws SQLException, ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
+        Class.forName("org.h2.Driver");
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
