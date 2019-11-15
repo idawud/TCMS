@@ -58,21 +58,22 @@ public class ClientDAO {
     public boolean deleteClient(int id) throws SQLException {
         String queryString = "UPDATE SET active = 'false' FROM clients " +
                 "WHERE active = 'true' AND client_id = ?";
-        return updateActiveColumn(queryString, id);
+        updateActiveColumn(queryString, id);
+        return true;
     }
 
     public boolean recoverClient(int id) throws SQLException {
         String queryString = "UPDATE SET active = 'true' FROM clients " +
                 "WHERE active = 'false' AND client_id = ?";
-        return updateActiveColumn(queryString, id);
+        updateActiveColumn(queryString, id);
+        return true;
     }
 
-    private boolean updateActiveColumn(String queryString, int id) throws SQLException {
+    private void updateActiveColumn(String queryString, int id) throws SQLException {
         PreparedStatement statement = this.connection.prepareStatement(queryString);
         statement.clearParameters();
         statement.setInt(1, id);
-        ResultSet rs = statement.executeQuery();
-        return rs.rowUpdated();
+        statement.executeQuery();
     }
 
     private Client rowMapper(ResultSet rs) throws SQLException {
