@@ -13,11 +13,22 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class DataAccess {
-    private ClientDAO clientDAO = new ClientDAO();
+    private static ClientDAO clientDAO;
+
+    static {
+        try {
+            clientDAO = new ClientDAO();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public DataAccess() throws SQLException, ClassNotFoundException { }
 
-    public static void showAllClientsRecords() throws IOException {
-        List<Client> records = cip.retrieveAll();
+    public static void showAllClientsRecords() throws SQLException {
+        List<Client> records = clientDAO.getAllClients();
         printRecords(records);
     }
 
@@ -29,8 +40,9 @@ public class DataAccess {
         }
     }
 
-    public static void showSearchedClientsRecords() throws IOException {
+    public static void showSearchedClientsRecords() throws SQLException {
         String name = DataEntry.getStringInput("Enter Client's name: ");
+        List<Client> records = clientDAO.getAllSearchedClients(name);
         printRecords(records);
     }
 
