@@ -1,5 +1,8 @@
 package io.turntabl.persistance;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.*;
 
 /**
@@ -13,6 +16,22 @@ public class DBConnection {
     public static Connection connect() throws SQLException, ClassNotFoundException {
         Class.forName("org.h2.Driver");
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    }
+
+    public DBConnection(){
+
+    }
+
+    public void setup(Statement statement) throws IOException {
+        Files.readAllLines(Path.of("clientData.sql")).forEach(
+                s -> {
+                    try {
+                        statement.execute(s);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
     }
 
     public boolean store(String name, String address, String tel_num, String email) throws SQLException, ClassNotFoundException {

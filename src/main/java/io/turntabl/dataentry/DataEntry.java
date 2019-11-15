@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class DataEntry {
     private static final Scanner INPUT = new Scanner(System.in);
 
-    public  static boolean toSave() throws SQLException, ClassNotFoundException {
+    public  static boolean toSave() throws SQLException, ClassNotFoundException, IOException {
         List<String> clientInformation = getClientInformation();
         DBConnection cip = new DBConnection();
         return ( cip.store( clientInformation.get(0),

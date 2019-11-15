@@ -7,6 +7,7 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -23,6 +24,9 @@ public class ClientInformationPersistenceTest {
 
     @Mock
     DBConnection connection = new DBConnection();
+
+    public ClientInformationPersistenceTest() throws SQLException, IOException, ClassNotFoundException {
+    }
 
     @Before
     public void setup() {
