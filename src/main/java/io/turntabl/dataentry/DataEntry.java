@@ -1,6 +1,6 @@
 package io.turntabl.dataentry;
 
-import io.turntabl.persistance.ClientInformationPersistence;
+import io.turntabl.persistance.DBConnection;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ public class DataEntry {
 
     public  static boolean toSave() throws IOException {
         List<String> clientInformation = getClientInformation();
-        ClientInformationPersistence cip = new ClientInformationPersistence();
+        DBConnection cip = new DBConnection();
         return ( cip.store( clientInformation.get(0),
                             clientInformation.get(1),
                             clientInformation.get(2),

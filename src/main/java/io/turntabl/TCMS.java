@@ -2,13 +2,13 @@ package io.turntabl;
 
 import io.turntabl.menu.AnsiConsole;
 import io.turntabl.menu.MainMenu;
-import io.turntabl.persistance.ClientInformationPersistence;
+import io.turntabl.persistance.DBConnection;
 
 import java.io.IOException;
 
 public class TCMS {
     public static void main(String[] args) throws IOException {
-        ClientInformationPersistence cip = new ClientInformationPersistence();
+        DBConnection cip = new DBConnection();
 
         TCMS tcms = new TCMS();
         MainMenu.welcome();

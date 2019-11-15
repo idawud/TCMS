@@ -3,7 +3,7 @@ package io.turntabl.dataaccess;
 import io.turntabl.dataentry.DataEntry;
 import io.turntabl.menu.AnsiConsole;
 import io.turntabl.menu.Printer;
-import io.turntabl.persistance.ClientInformationPersistence;
+import io.turntabl.persistance.DBConnection;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class DataAccess {
 
     public static void showAllClientsRecords() throws IOException {
-        ClientInformationPersistence cip = new ClientInformationPersistence();
+        DBConnection cip = new DBConnection();
         List<Client> records = cip.retrieveAll();
         printRecords(records);
     }
@@ -29,14 +29,12 @@ public class DataAccess {
 
     public static void showSearchedClientsRecords() throws IOException {
         String name = DataEntry.getStringInput("Enter Client's name: ");
-        ClientInformationPersistence cip = new ClientInformationPersistence();
-        List<Client> records = cip.search(name, ClientInformationPersistence.FILEPATH);
         printRecords(records);
     }
 
     public static void deleteClientRecord() throws IOException {
-        queryAndMoveClientData( ClientInformationPersistence.FILEPATH,
-                                ClientInformationPersistence.ARCHIVEPATH,
+        queryAndMoveClientData( DBConnection.FILEPATH,
+                                DBConnection.ARCHIVEPATH,
                             "\nEnter the ID to be deleted: ",
                             "\nClient Record Deleted Successfully!");
     }
@@ -58,15 +56,15 @@ public class DataAccess {
 
 
     public static void recoverDeleteClientRecord() throws IOException {
-        queryAndMoveClientData( ClientInformationPersistence.ARCHIVEPATH,
-                                ClientInformationPersistence.FILEPATH,
+        queryAndMoveClientData( DBConnection.ARCHIVEPATH,
+                                DBConnection.FILEPATH,
                             "\nEnter the ID to be recovered: ",
                             "\nClient Record Recovered Successfully!");
     }
 
     private static void queryAndMoveClientData(Path fromPath, Path toPath, String s, String s2) throws IOException {
         String name = DataEntry.getStringInput("Enter Client's Name: ");
-        ClientInformationPersistence cip = new ClientInformationPersistence();
+        DBConnection cip = new DBConnection();
         List<Client> records = cip.search(name, fromPath);
 
         if (records.size() == 0) {

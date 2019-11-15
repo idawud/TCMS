@@ -29,7 +29,7 @@ public class ClientInformationPersistenceTest {
     public final ExpectedException exception = ExpectedException.none();
 
     @Mock
-    ClientInformationPersistence cip = new ClientInformationPersistence();
+    DBConnection cip = new DBConnection();
 
     @Before
     public void setup() {
