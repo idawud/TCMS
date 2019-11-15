@@ -17,14 +17,12 @@ import static org.mockito.Mockito.when;
 
 public class ClientInformationPersistenceTest {
 
-    public static final Path FILEPATH = Paths.get("./resources/clientsInformation.txt");
-    public static final Path ARCHIVEPATH = Paths.get("./resources/archive.txt");
 
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
     @Mock
-    DBConnection dbConnection = new DBConnection();
+    DBConnection connection = new DBConnection();
 
     @Before
     public void setup() {
@@ -33,18 +31,18 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void store_successful() throws SQLException, ClassNotFoundException {
-        when(dbConnection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
+        when(connection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
                 .thenReturn(true);
-        assertTrue(dbConnection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"));
+        assertTrue(connection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"));
     }
 
     @Test
     public void store_unsuccessfulThrowsException() throws SQLException, ClassNotFoundException {
-        when(dbConnection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
+        when(connection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
                 .thenThrow(new SQLException());
 
         exception.expect(SQLException.class);
-        dbConnection.store("dawud", "achimota-accra", "052768256", "dawud@one.email");
+        connection.store("dawud", "achimota-accra", "052768256", "dawud@one.email");
     }
 
 }

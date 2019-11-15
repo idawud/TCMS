@@ -15,7 +15,7 @@ public class DBConnection {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
-    public static boolean store(String name, String address, String tel_num, String email) throws SQLException, ClassNotFoundException {
+    public boolean store(String name, String address, String tel_num, String email) throws SQLException, ClassNotFoundException {
         String queryString = "INSERT INTO clients (client_name, address, tel_num, email) " +
                 "VALUES ( ?, ?, ?, ? )";
         PreparedStatement statement = connect().prepareStatement(queryString);
