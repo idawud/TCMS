@@ -37,7 +37,6 @@ public class ClientDAOTest {
         Connection connection = DBConnection.connect(URL, USERNAME, PASSWORD);
         Statement statement = connection.createStatement();
         clientDAO = new ClientDAO();
-        DBConnection setup = new DBConnection();
         setup(statement);
     }
 
