@@ -43,32 +43,36 @@ public class ClientDAO {
     }
 
     public List<Client> getAllClients() throws SQLException {
-        String queryString = "SELECT * FROM clients WHERE active = 1";
+        String queryString = "SELECT * FROM clients WHERE active = 'true' ";
         ResultSet rs = getResultSet(queryString, Collections.emptyList());
         return getClients(rs);
     }
 
 
     public List<Client> getAllSearchedClients(String clientName) throws SQLException {
-        String queryString = "SELECT * FROM clients WHERE active = 1 AND client_name = ?";
+        String queryString = "SELECT * FROM clients WHERE active = 'true' AND client_name = ?";
         ResultSet rs = getResultSet(queryString, Arrays.asList(clientName));
         return getClients(rs);
     }
 
     public boolean deleteClient(int id) throws SQLException {
-        String queryString = "UPDATE SET active = 0 FROM clients WHERE client_id = ?";
-        ResultSet rs = getResultSet(queryString, Arrays.asList(String.valueOf(id)));
-        return true;
+        String queryString = "UPDATE SET active = 'false' FROM clients " +
+                "WHERE active = 'true' AND client_id = ?";
+        return updateActiveColumn(queryString, id);
     }
 
-    // public boolean recoverClient(int id) throws SQLException { }
-    public boolean updateActiveColumn(int id, int value) throws SQLException {
-        if ( !(value == 0 || value == 1) ){
-            return false;
-        }
-        String queryString = "UPDATE SET active = 1 FROM clients WHERE client_id = ?";
-        ResultSet rs = getResultSet(queryString, Arrays.asList(String.valueOf(id)));
-        return true;
+    public boolean recoverClient(int id) throws SQLException {
+        String queryString = "UPDATE SET active = 'true' FROM clients " +
+                "WHERE active = 'false' AND client_id = ?";
+        return updateActiveColumn(queryString, id);
+    }
+
+    private boolean updateActiveColumn(String queryString, int id) throws SQLException {
+        PreparedStatement statement = this.connection.prepareStatement(queryString);
+        statement.clearParameters();
+        statement.setInt(1, id);
+        ResultSet rs = statement.executeQuery();
+        return rs.rowUpdated();
     }
 
     private Client rowMapper(ResultSet rs, int rowNum) throws SQLException {
