@@ -1,6 +1,7 @@
 package io.turntabl;
 
 import java.sql.*;
+import java.util.Properties;
 
 public class JDBC_TCMS {
 
@@ -8,16 +9,20 @@ public class JDBC_TCMS {
 
 
         Class.forName("org.postgresql.Driver");
+        Properties ours = new Properties();
+        ours.setProperty("udername", "adepa");
+        ours.setProperty("password", "tryanything");
+        //ours.setProperty("ssl", "true");
 
-        String url = "https://postgres/clientManager";
-        String username = "patricia-agyekum";
-        String password = "turntabl";
+        String url = "jdbc:postgresql:/localhost:postgresql/clientManager";
+        //String username = "adepa";
+        //String password = "tryanything";
 
         //Building the connection
 
         try (
 
-                Connection db = DriverManager.getConnection(url, username, password)) {
+                Connection db = DriverManager.getConnection(url, ours)) {
 
             Statement s = db.createStatement();
             ResultSet rs = s.executeQuery("select * from clients");
