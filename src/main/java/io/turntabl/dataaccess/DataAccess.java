@@ -3,7 +3,6 @@ package io.turntabl.dataaccess;
 import io.turntabl.dataentry.DataEntry;
 import io.turntabl.menu.AnsiConsole;
 import io.turntabl.menu.Printer;
-import io.turntabl.persistance.ClientData;
 import io.turntabl.persistance.ClientInformationPersistence;
 
 import java.io.IOException;
@@ -16,11 +15,11 @@ public class DataAccess {
 
     public static void showAllClientsRecords() throws IOException {
         ClientInformationPersistence cip = new ClientInformationPersistence();
-        List<ClientData> records = cip.retrieveAll();
+        List<Client> records = cip.retrieveAll();
         printRecords(records);
     }
 
-    private static void printRecords(List<ClientData> records) {
+    private static void printRecords(List<Client> records) {
         if (records.size() == 0) {
             Printer.recordNotFound();
         } else {
@@ -31,7 +30,7 @@ public class DataAccess {
     public static void showSearchedClientsRecords() throws IOException {
         String name = DataEntry.getStringInput("Enter Client's name: ");
         ClientInformationPersistence cip = new ClientInformationPersistence();
-        List<ClientData> records = cip.search(name, ClientInformationPersistence.FILEPATH);
+        List<Client> records = cip.search(name, ClientInformationPersistence.FILEPATH);
         printRecords(records);
     }
 
@@ -68,14 +67,14 @@ public class DataAccess {
     private static void queryAndMoveClientData(Path fromPath, Path toPath, String s, String s2) throws IOException {
         String name = DataEntry.getStringInput("Enter Client's Name: ");
         ClientInformationPersistence cip = new ClientInformationPersistence();
-        List<ClientData> records = cip.search(name, fromPath);
+        List<Client> records = cip.search(name, fromPath);
 
         if (records.size() == 0) {
             Printer.recordNotFound();
         } else {
             records.forEach(Printer::printClientCardWithId);
             List<Integer> searchedIds = records.stream()
-                    .map(ClientData::getId)
+                    .map(Client::getId)
                     .collect(Collectors.toList());
             int id = getId(s);
             if (isValidId(id, searchedIds)) {

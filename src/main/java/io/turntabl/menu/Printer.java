@@ -1,12 +1,12 @@
 package io.turntabl.menu;
 
-import io.turntabl.persistance.ClientData;
+import io.turntabl.dataaccess.Client;
 
 import java.util.List;
 
 
 public class Printer {
-    public static void printClientCard(ClientData clientData){
+    public static void printClientCard(Client clientData){
        List<String> record = clientData.toList();
         System.out.println("***************************************************************************");
         System.out.println(
@@ -17,7 +17,7 @@ public class Printer {
         System.out.println("***************************************************************************");
     }
 
-    public static void printClientCardWithId(ClientData clientData){
+    public static void printClientCardWithId(Client clientData){
         List<String> record = clientData.toList();
         System.out.println("***************************************************************************");
         System.out.println(

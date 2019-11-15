@@ -1,5 +1,6 @@
 package io.turntabl.persistance;
 
+import io.turntabl.dataaccess.Client;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -60,10 +61,10 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void retrieveAll_NotEmpty() throws IOException {
-        List<ClientData> expected = Arrays.asList(
-                new ClientData(1, "dawud", "achimota-accra", "022768256", "dawud@one.email"),
-                new ClientData(2, "pat", "st. johns -accra", "052768256", "pat@one.email"),
-                new ClientData(3, "alex", "achimota-accra", "092768256", "alex@one.email")
+        List<Client> expected = Arrays.asList(
+                new Client(1, "dawud", "achimota-accra", "022768256", "dawud@one.email"),
+                new Client(2, "pat", "st. johns -accra", "052768256", "pat@one.email"),
+                new Client(3, "alex", "achimota-accra", "092768256", "alex@one.email")
         );
         when( cip.retrieveAll())
                 .thenReturn(expected);
@@ -72,7 +73,7 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void search_Empty() throws IOException {
-        List<ClientData> expected = Arrays.asList();
+        List<Client> expected = Arrays.asList();
 
         when( cip.search("asdf", FILEPATH))
                 .thenReturn(expected);
@@ -81,8 +82,8 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void search_NotEmpty_Single() throws IOException {
-        List<ClientData> expected = Arrays.asList(
-                new ClientData(1 ,"alex", "achimota-accra", "092768256", "alex@one.email")
+        List<Client> expected = Arrays.asList(
+                new Client(1 ,"alex", "achimota-accra", "092768256", "alex@one.email")
         );
         when( cip.search("alex", FILEPATH))
                 .thenReturn(expected);
@@ -91,9 +92,9 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void search_NotEmpty_Multiple() throws IOException {
-        List<ClientData> expected = Arrays.asList(
-                new ClientData(1, "alex", "st. johns -accra", "052768256", "pat@one.email"),
-                new ClientData(2, "alex", "achimota-accra", "092768256", "alex@one.email")
+        List<Client> expected = Arrays.asList(
+                new Client(1, "alex", "st. johns -accra", "052768256", "pat@one.email"),
+                new Client(2, "alex", "achimota-accra", "092768256", "alex@one.email")
         );
         when( cip.search("alex", FILEPATH))
                 .thenReturn(expected);
