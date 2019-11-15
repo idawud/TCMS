@@ -4,10 +4,11 @@ import io.turntabl.dataaccess.DataAccess;
 import io.turntabl.dataentry.DataEntry;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainMenu {
-    public static void operation(int option) throws IOException {
+    public static void operation(int option) throws SQLException, ClassNotFoundException {
         switch (option){
             case 1:
                 entry();
@@ -31,7 +32,7 @@ public class MainMenu {
         }
     }
 
-    private static void entry() throws IOException {
+    private static void entry() throws SQLException, ClassNotFoundException {
         if (DataEntry.toSave()){
             System.out.println(AnsiConsole.GREEN + "\nClient Added Successfully!!!" + AnsiConsole.RESET);
         }
