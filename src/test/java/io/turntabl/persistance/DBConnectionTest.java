@@ -12,7 +12,7 @@ public class DBConnectionTest {
     @Test
     public void store() throws SQLException, ClassNotFoundException, IOException {
         DBConnection connection = new DBConnection();
-         boolean result = connection.store("alex", "md zg",
+         boolean result = connection.store("yaw pop", "md zg",
                  "68977-6788-788", "mail@mail.email");
          assertFalse(result);
     }

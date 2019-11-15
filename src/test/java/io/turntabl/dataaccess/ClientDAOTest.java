@@ -54,13 +54,19 @@ public class ClientDAOTest {
 
     @Test
     public void testGetAllSearchedArchivedClients_Available() throws SQLException {
-        List<Client> result = clientDAO.getAllSearchedArchivedClients("Mary");
+        List<Client> result = clientDAO.getAllSearchedArchivedClients("Alex");
         assertEquals( 0, result.size());
     }
 
     @Test
     public void testRecoverClient() throws SQLException {
-        boolean result = clientDAO.recoverClient(3);
+        boolean result = clientDAO.recoverClient(2);
        assertTrue(result);
+    }
+
+    @Test
+    public void testGetAllClients_Again() throws SQLException {
+        List<Client> result = clientDAO.getAllClients();
+        assertEquals( 2, result.size());
     }
 }

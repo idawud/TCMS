@@ -70,7 +70,7 @@ public class ClientDAO {
         PreparedStatement statement = this.connection.prepareStatement(queryString);
         statement.clearParameters();
         statement.setInt(1, id);
-        statement.execute();
+        statement.executeUpdate();
     }
 
     private Client rowMapper(ResultSet rs) throws SQLException {
