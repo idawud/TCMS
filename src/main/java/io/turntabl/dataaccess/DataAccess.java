@@ -7,14 +7,16 @@ import io.turntabl.persistance.DBConnection;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class DataAccess {
+    private ClientDAO clientDAO = new ClientDAO();
+    public DataAccess() throws SQLException, ClassNotFoundException { }
 
     public static void showAllClientsRecords() throws IOException {
-        DBConnection cip = new DBConnection();
         List<Client> records = cip.retrieveAll();
         printRecords(records);
     }

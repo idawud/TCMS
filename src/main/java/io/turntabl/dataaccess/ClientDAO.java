@@ -19,17 +19,11 @@ public class ClientDAO {
         this.connection = DBConnection.connect();
     }
 
-    private ResultSet getResultSet(String queryString, List<String> setValues) throws SQLException {
+    private ResultSet getResultSet(String queryString, String value) throws SQLException {
         PreparedStatement statement = this.connection.prepareStatement(queryString);
-        AtomicInteger count = new AtomicInteger(1);
-        statement.clearParameters();
-        for (String value : setValues) {
-            try {
-                statement.setString(count.get(), value);
-                count.getAndIncrement();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        if ( !value.isEmpty()) {
+            statement.clearParameters();
+            statement.setString(1, value);
         }
         return statement.executeQuery();
     }
@@ -44,14 +38,14 @@ public class ClientDAO {
 
     public List<Client> getAllClients() throws SQLException {
         String queryString = "SELECT * FROM clients WHERE active = 'true' ";
-        ResultSet rs = getResultSet(queryString, Collections.emptyList());
+        ResultSet rs = getResultSet(queryString, "");
         return getClients(rs);
     }
 
 
     public List<Client> getAllSearchedClients(String clientName) throws SQLException {
         String queryString = "SELECT * FROM clients WHERE active = 'true' AND client_name = ?";
-        ResultSet rs = getResultSet(queryString, Arrays.asList(clientName));
+        ResultSet rs = getResultSet(queryString, clientName);
         return getClients(rs);
     }
 
