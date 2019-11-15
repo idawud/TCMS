@@ -3,6 +3,7 @@ package io.turntabl.dataentry;
 import io.turntabl.persistance.DBConnection;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 public class DataEntry {
     private static final Scanner INPUT = new Scanner(System.in);
 
-    public  static boolean toSave() throws IOException {
+    public  static boolean toSave() throws SQLException, ClassNotFoundException {
         List<String> clientInformation = getClientInformation();
         DBConnection cip = new DBConnection();
         return ( cip.store( clientInformation.get(0),

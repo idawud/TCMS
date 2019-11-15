@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DataAccess {
     private static ClientDAO clientDAO;
@@ -18,9 +19,7 @@ public class DataAccess {
     static {
         try {
             clientDAO = new ClientDAO();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -46,15 +45,52 @@ public class DataAccess {
         printRecords(records);
     }
 
-    public static void deleteClientRecord() throws IOException {
-        queryAndMoveClientData( DBConnection.FILEPATH,
-                                DBConnection.ARCHIVEPATH,
-                            "\nEnter the ID to be deleted: ",
-                            "\nClient Record Deleted Successfully!");
+    public static void deleteClientRecord() throws SQLException {
+        String name = DataEntry.getStringInput("Enter Client's Name: ");
+
+        List<Client> records = clientDAO.getAllSearchedClients(name);
+        if (records.size() == 0) {
+            Printer.recordNotFound();
+        } else {
+            records.forEach(Printer::printClientCardWithId);
+            List<Integer> validIds = records.stream().map(Client::getId).collect(Collectors.toList());
+
+            int id = getId("\nEnter the ID to be deleted: ");
+            if (validIds.contains(id)) {
+                boolean status = clientDAO.deleteClient(id);
+                if (status) {
+                    System.out.println(AnsiConsole.GREEN + "\nClient Record Deleted Successfully!" + AnsiConsole.RESET);
+                }
+            } else {
+                System.out.println(AnsiConsole.RED + "Oops! Client with id " + id +
+                        " does not exist " + AnsiConsole.RESET);
+            }
+        }
     }
 
-    private static boolean isValidId(int id, List<Integer> numbers) {
-        return numbers.contains(id);
+
+    public static void recoverDeleteClientRecord() throws SQLException {
+        String name = DataEntry.getStringInput("Enter Client's Name: ");
+
+        List<Client> records = clientDAO.getAllSearchedArchivedClients(name);
+        if (records.size() == 0) {
+            Printer.recordNotFound();
+        } else {
+            records.forEach(Printer::printClientCardWithId);
+            List<Integer> validIds = records.stream().map(Client::getId).collect(Collectors.toList());
+
+            int id = getId("\nEnter the ID to be recovered: ");
+            if (validIds.contains(id)) {
+                boolean status = clientDAO.recoverClient(id);
+                if (status) {
+                    System.out.println(AnsiConsole.GREEN +
+                            "\\nClient Record Recovered Successfully!" + AnsiConsole.RESET);
+                }
+            } else {
+                System.out.println(AnsiConsole.RED + "Oops! Client with id " + id +
+                        " does not exist " + AnsiConsole.RESET);
+            }
+        }
     }
 
     private static int getId(String s){
@@ -66,39 +102,6 @@ public class DataAccess {
         }catch (Exception ignored){
         }
         return id;
-    }
-
-
-    public static void recoverDeleteClientRecord() throws IOException {
-        queryAndMoveClientData( DBConnection.ARCHIVEPATH,
-                                DBConnection.FILEPATH,
-                            "\nEnter the ID to be recovered: ",
-                            "\nClient Record Recovered Successfully!");
-    }
-
-    private static void queryAndMoveClientData(Path fromPath, Path toPath, String s, String s2) throws IOException {
-        String name = DataEntry.getStringInput("Enter Client's Name: ");
-        DBConnection cip = new DBConnection();
-        List<Client> records = cip.search(name, fromPath);
-
-        if (records.size() == 0) {
-            Printer.recordNotFound();
-        } else {
-            records.forEach(Printer::printClientCardWithId);
-            List<Integer> searchedIds = records.stream()
-                    .map(Client::getId)
-                    .collect(Collectors.toList());
-            int id = getId(s);
-            if (isValidId(id, searchedIds)) {
-                if (cip.moveRecord(id, fromPath, toPath)) {
-                    System.out.println(AnsiConsole.GREEN + s2 + AnsiConsole.RESET);
-                } else {
-                    System.out.println(AnsiConsole.RED + "Oops! Client with id " + id + " does not exist" + AnsiConsole.RESET);
-                }
-            } else {
-                System.out.println(AnsiConsole.RED + "You entered an invalid id" + AnsiConsole.RESET);
-            }
-        }
     }
 
 }

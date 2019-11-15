@@ -31,7 +31,7 @@ public class ClientDAO {
     private List<Client> getClients(ResultSet rs) throws SQLException {
         List<Client> result = new ArrayList<>();
         while ( rs.next()){
-            result.add(rowMapper(rs, rs.getRow()));
+            result.add(rowMapper(rs));
         }
         return result;
     }
@@ -45,6 +45,12 @@ public class ClientDAO {
 
     public List<Client> getAllSearchedClients(String clientName) throws SQLException {
         String queryString = "SELECT * FROM clients WHERE active = 'true' AND client_name = ?";
+        ResultSet rs = getResultSet(queryString, clientName);
+        return getClients(rs);
+    }
+
+    public List<Client> getAllSearchedArchivedClients(String clientName) throws SQLException {
+        String queryString = "SELECT * FROM clients WHERE active = 'false' AND client_name = ?";
         ResultSet rs = getResultSet(queryString, clientName);
         return getClients(rs);
     }
@@ -69,7 +75,7 @@ public class ClientDAO {
         return rs.rowUpdated();
     }
 
-    private Client rowMapper(ResultSet rs, int rowNum) throws SQLException {
+    private Client rowMapper(ResultSet rs) throws SQLException {
         return new Client(
                 rs.getInt("client_id"),
                 rs.getString("client_name"),
