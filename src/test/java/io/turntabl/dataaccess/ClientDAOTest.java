@@ -1,13 +1,10 @@
 package io.turntabl.dataaccess;
 
 import io.turntabl.persistance.DBConnection;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,10 +14,13 @@ import static org.junit.Assert.*;
 
 public class ClientDAOTest {
     private  ClientDAO clientDAO;
+    private static final String URL = "jdbc:h2:~/tcmsv1.1";
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
 
     @Before
     public void setup() throws SQLException, ClassNotFoundException, IOException {
-        Connection connection = DBConnection.connect();
+        Connection connection = DBConnection.connect(URL, USERNAME, PASSWORD);
         Statement statement = connection.createStatement();
         clientDAO = new ClientDAO();
         DBConnection setup = new DBConnection();

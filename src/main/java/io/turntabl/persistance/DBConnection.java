@@ -18,6 +18,11 @@ public class DBConnection {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
+    public static Connection connect(String url, String username, String password) throws SQLException, ClassNotFoundException {
+        Class.forName("org.h2.Driver");
+        return DriverManager.getConnection(url, username, password);
+    }
+
     public DBConnection(){
 
     }
