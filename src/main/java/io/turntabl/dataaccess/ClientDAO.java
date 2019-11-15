@@ -7,10 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClientDAO {
     private Connection connection;
@@ -56,23 +53,24 @@ public class ClientDAO {
     }
 
     public boolean deleteClient(int id) throws SQLException {
-        String queryString = "UPDATE SET active = 'false' FROM clients " +
+        String queryString = "UPDATE clients  SET active = 'false' " +
                 "WHERE active = 'true' AND client_id = ?";
-        return updateActiveColumn(queryString, id);
+        updateActiveColumn(queryString, id);
+        return true;
     }
 
     public boolean recoverClient(int id) throws SQLException {
-        String queryString = "UPDATE SET active = 'true' FROM clients " +
+        String queryString = "UPDATE clients SET active = 'true' " +
                 "WHERE active = 'false' AND client_id = ?";
-        return updateActiveColumn(queryString, id);
+        updateActiveColumn(queryString, id);
+        return true;
     }
 
-    private boolean updateActiveColumn(String queryString, int id) throws SQLException {
+    private void updateActiveColumn(String queryString, int id) throws SQLException {
         PreparedStatement statement = this.connection.prepareStatement(queryString);
         statement.clearParameters();
         statement.setInt(1, id);
-        ResultSet rs = statement.executeQuery();
-        return rs.rowUpdated();
+        statement.execute();
     }
 
     private Client rowMapper(ResultSet rs) throws SQLException {

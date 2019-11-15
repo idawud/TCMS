@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class TCMS {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
         DBConnection dbConnection = new DBConnection();
 
         TCMS tcms = new TCMS();
@@ -19,7 +19,7 @@ public class TCMS {
         }
     }
 
-    private void run() throws SQLException, ClassNotFoundException {
+    private void run() throws SQLException, ClassNotFoundException, IOException {
             MainMenu.menuListing();
             int option = MainMenu.getUserMenuSelection();
             if (MainMenu.isAnOptionOnMenu(option)){

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainMenu {
-    public static void operation(int option) throws SQLException, ClassNotFoundException {
+    public static void operation(int option) throws SQLException, ClassNotFoundException, IOException {
         switch (option){
             case 1:
                 entry();
@@ -32,7 +32,7 @@ public class MainMenu {
         }
     }
 
-    private static void entry() throws SQLException, ClassNotFoundException {
+    private static void entry() throws SQLException, ClassNotFoundException, IOException {
         if (DataEntry.toSave()){
             System.out.println(AnsiConsole.GREEN + "\nClient Added Successfully!!!" + AnsiConsole.RESET);
         }
