@@ -1,10 +1,14 @@
 package io.turntabl.menu;
 
 import io.turntabl.Consumer;
+import io.turntabl.SharedData;
 
+import java.util.Observable;
 import java.util.Scanner;
 
-public class AppMenu extends Consumer {
+public class AppMenu implements Runnable{
+
+    private final SharedData sharedData;
 
     public static boolean isAnOptionOnMenu(int option){
         return option >= 1 && option <= 6;
@@ -33,13 +37,18 @@ public class AppMenu extends Consumer {
         System.out.println("####################################################");
     }
 
+    public AppMenu(SharedData sharedData) {
+        this.sharedData = sharedData;
+    }
+
+    @Override
     public void run() {
         while (true) {
             AppMenu.menuListing();
             int option = AppMenu.getUserMenuSelection();
             if (AppMenu.isAnOptionOnMenu(option)) {
                 // MainMenu.operation(option);
-                produce(option);
+                this.sharedData.setOption(option);
             } else {
                 System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
             }

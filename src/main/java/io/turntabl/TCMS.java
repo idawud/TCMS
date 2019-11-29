@@ -6,8 +6,10 @@ import io.turntabl.menu.AppMenu;
 public class TCMS {
 
     public static void main(String[] args) {
-        Thread databaseProcessing = new Thread(new Consumer(), "TCMS-DataProcessing");
-        Thread ui = new Thread(new AppMenu(), "TCMS-ui");
+        SharedData sharedData = new SharedData();
+
+        Thread databaseProcessing = new Thread(new Consumer(sharedData), "TCMS-DataProcessing");
+        Thread ui = new Thread(new AppMenu(sharedData), "TCMS-ui");
 
         // Welcome
         System.out.println(AnsiConsole.YELLOW +"*****************************************************************************\n"

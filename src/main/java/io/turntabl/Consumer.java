@@ -5,10 +5,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class Consumer extends BGThread implements Runnable, Observer {
+    private final SharedData sharedData;
     private Observable observable;
 
-    public Consumer(Observable observable) {
+    public Consumer(Observable observable, SharedData sharedData) {
         this.observable = observable;
+        this.sharedData = sharedData;
         observe(observable);
     }
 
@@ -16,7 +18,7 @@ public class Consumer extends BGThread implements Runnable, Observer {
     @Override
     public void run() {
             while (!Thread.interrupted()){
-                update(observable, new SharedData());
+                update(observable, sharedData);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
