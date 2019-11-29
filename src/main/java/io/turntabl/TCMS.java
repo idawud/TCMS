@@ -1,7 +1,7 @@
 package io.turntabl;
 
 import io.turntabl.menu.AnsiConsole;
-import io.turntabl.menu.MainMenu;
+import io.turntabl.menu.AppMenu;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class TCMS {
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, InterruptedException {
         Thread ui = new Thread(
-                 new MainMenu(),
+                 ,
                 "TCMS-DBProcessing"
         );
 
@@ -24,6 +24,8 @@ public class TCMS {
 
         TCMS tcms = new TCMS();
         tcms.welcome();
+        AppMenu menu = new AppMenu();
+        menu.run();
 
         databaseProcessing.start();
         ui.start();

@@ -1,13 +1,12 @@
 package io.turntabl.menu;
 
 import io.turntabl.dataaccess.DataAccess;
-import io.turntabl.dataentry.DataEntry;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class MainMenu extends Thread{
+public class AppMenu{
     private DataAccess dataAccess = new DataAccess();
     public void operation(int option) throws SQLException, ClassNotFoundException, IOException {
         switch (option){
@@ -16,19 +15,15 @@ public class MainMenu extends Thread{
                 break;
             case 2:
                 dataAccess.showAllClientsRecords();
-                //DataAccess.showAllClientsRecords();
                 break;
             case 3:
                 dataAccess.showSearchedClientsRecords();
-                //DataAccess.showSearchedClientsRecords();
                 break;
             case 4:
                 dataAccess.deleteClientRecord();
-                //DataAccess.deleteClientRecord();
                 break;
             case 5:
                 dataAccess.recoverDeleteClientRecord();
-                //DataAccess.recoverDeleteClientRecord();
                 break;
             case 6:
                 System.exit(0);
@@ -65,16 +60,17 @@ public class MainMenu extends Thread{
         System.out.println("####################################################");
     }
 
-    @Override
+
     public void run() {
-        MainMenu.menuListing();
-        int option = MainMenu.getUserMenuSelection();
-        if (MainMenu.isAnOptionOnMenu(option)){
-            // MainMenu.operation(option);
-            System.out.println("Ui");
-        }
-        else {
-            System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
+        while (true) {
+            AppMenu.menuListing();
+            int option = AppMenu.getUserMenuSelection();
+            if (AppMenu.isAnOptionOnMenu(option)) {
+                // MainMenu.operation(option);
+                System.out.println("Ui");
+            } else {
+                System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
+            }
         }
     }
 
