@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class MainMenu {
+public class MainMenu extends Thread{
     private DataAccess dataAccess = new DataAccess();
     public void operation(int option) throws SQLException, ClassNotFoundException, IOException {
         switch (option){
@@ -63,6 +63,19 @@ public class MainMenu {
         System.out.println("##\t 5. Undo Delete");
         System.out.println("##\t 6. Quit this Application");
         System.out.println("####################################################");
+    }
+
+    @Override
+    public void run() {
+        MainMenu.menuListing();
+        int option = MainMenu.getUserMenuSelection();
+        if (MainMenu.isAnOptionOnMenu(option)){
+            // MainMenu.operation(option);
+            System.out.println("Ui");
+        }
+        else {
+            System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
+        }
     }
 
 }
