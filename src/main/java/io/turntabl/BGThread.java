@@ -2,12 +2,9 @@ package io.turntabl;
 
 import io.turntabl.dataaccess.DataAccess;
 import io.turntabl.menu.AnsiConsole;
-import io.turntabl.menu.AppMenu;
-
-import java.io.IOException;
 import java.sql.SQLException;
 
-public class BGThread extends Thread{
+public class BGThread {
     private DataAccess dataAccess = new DataAccess();
 
     public void operation(int option) throws SQLException, ClassNotFoundException {
@@ -34,10 +31,4 @@ public class BGThread extends Thread{
         }
     }
 
-    @Override
-    public void run(){
-        while (!Thread.interrupted()){
-
-        }
-    }
 }

@@ -2,7 +2,7 @@ package io.turntabl;
 
 import java.sql.SQLException;
 
-public class SharedData extends BGThread{
+public class SharedData extends BGThread implements Runnable{
     public volatile int selection;
 
     public void produce(int value)throws InterruptedException
@@ -25,5 +25,12 @@ public class SharedData extends BGThread{
             notifyAll();
             System.out.println("Consume Resumed");
         }
+    }
+
+    @Override
+    public void run() {
+            while (!Thread.interrupted()){
+                consume();
+            }
     }
 }
