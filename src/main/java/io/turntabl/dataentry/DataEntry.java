@@ -14,7 +14,7 @@ public class DataEntry {
     public  static boolean toSave() throws SQLException, ClassNotFoundException {
         List<String> clientInformation = getClientInformation();
         DBConnection cip = new DBConnection();
-        return ( cip.store( DBType.POSTGRESQL,
+        return ( !cip.store( DBType.POSTGRESQL,
                             clientInformation.get(0),
                             clientInformation.get(1),
                             clientInformation.get(2),

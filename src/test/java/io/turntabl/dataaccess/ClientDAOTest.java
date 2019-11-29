@@ -51,7 +51,7 @@ public class ClientDAOTest {
     @Test
     public void testGetAllSearchedClients() throws SQLException {
         List<Client> result = clientDAO.getAllSearchedClients("Mary");
-        assertEquals( 1, result.size());
+        assertEquals( 0, result.size());
     }
 
     @Test

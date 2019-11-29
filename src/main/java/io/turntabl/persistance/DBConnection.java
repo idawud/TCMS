@@ -37,7 +37,7 @@ public class DBConnection {
         statement.setString(2, address);
         statement.setString(3, tel_num);
         statement.setString(4, email);
-        return !statement.execute();
+        return statement.execute();
     }
 
 }
