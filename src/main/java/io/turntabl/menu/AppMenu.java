@@ -1,14 +1,11 @@
 package io.turntabl.menu;
 
-import io.turntabl.Consumer;
-import io.turntabl.SharedData;
+import io.turntabl.BGThread;
 
-import java.util.Observable;
+import java.sql.SQLException;
 import java.util.Scanner;
 
-public class AppMenu implements Runnable{
-
-    private final SharedData sharedData;
+public class AppMenu  {
 
     public static boolean isAnOptionOnMenu(int option){
         return option >= 1 && option <= 6;
@@ -37,19 +34,14 @@ public class AppMenu implements Runnable{
         System.out.println("####################################################");
     }
 
-    public AppMenu(SharedData sharedData) {
-        this.sharedData = sharedData;
-    }
 
-    @Override
-    public void run() {
+    public void run() throws SQLException, ClassNotFoundException {
+        BGThread bgThread = new BGThread();
         while (true) {
             AppMenu.menuListing();
             int option = AppMenu.getUserMenuSelection();
             if (AppMenu.isAnOptionOnMenu(option)) {
-                // MainMenu.operation(option);
-                this.sharedData.setOption(option);
-                System.out.println("set complete");
+                bgThread.operation(option);
             } else {
                 System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
             }

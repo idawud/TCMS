@@ -10,19 +10,46 @@ public class BGThread {
     public void operation(int option) throws SQLException, ClassNotFoundException {
         switch (option){
             case 1:
-                dataAccess.entry();
+                Thread entry = new Thread(()-> {
+                    try {
+                        dataAccess.entry();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException ignored) {  }
+                });
+                entry.start();
                 break;
             case 2:
-                dataAccess.showAllClientsRecords();
+                Thread clientsDisplay = new Thread(()-> {
+                    try {
+                        dataAccess.showAllClientsRecords();
+                    } catch (SQLException ignored) { }
+                });
+                clientsDisplay.start();
                 break;
             case 3:
-                dataAccess.showSearchedClientsRecords();
+                Thread records = new Thread(()-> {
+                    try {
+                        dataAccess.showSearchedClientsRecords();
+                    }catch (SQLException ignored) { }
+                });
+                records.start();
                 break;
             case 4:
-                dataAccess.deleteClientRecord();
+                Thread delete = new Thread(()-> {
+                    try {
+                        dataAccess.deleteClientRecord();
+                    } catch (SQLException ignored) { }
+                });
+                delete.start();
                 break;
             case 5:
-                dataAccess.recoverDeleteClientRecord();
+                Thread recover = new Thread(()-> {
+                    try {
+                        dataAccess.recoverDeleteClientRecord();
+                    } catch (SQLException ignored) { }
+                });
+                recover.start();
                 break;
             case 6:
                 System.exit(0);
