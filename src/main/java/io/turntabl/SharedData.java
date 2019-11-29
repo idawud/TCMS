@@ -15,15 +15,14 @@ public class SharedData extends BGThread{
         }
     }
 
-    public void consume()throws InterruptedException
-    {
+    public void consume() {
         synchronized(this)
         {
             try {
                 operation(selection);
             } catch (SQLException | ClassNotFoundException ignored) { }
 
-            notify();
+            notifyAll();
             System.out.println("Consume Resumed");
         }
     }
