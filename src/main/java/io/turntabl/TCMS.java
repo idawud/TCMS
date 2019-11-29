@@ -5,26 +5,16 @@ import io.turntabl.menu.AppMenu;
 
 public class TCMS {
     public static void main(String[] args) {
-
-        Thread databaseProcessing = new Thread(
-                ()-> {
-                    while (!Thread.interrupted()){
-
-                    }
-                },
-                "TCMS-DataProcessing"
-        );
+        Thread databaseProcessing = new Thread(new SharedData(), "TCMS-DataProcessing");
+        Thread ui = new Thread(new AppMenu(), "TCMS-ui");
 
         // Welcome
         System.out.println(AnsiConsole.YELLOW +"*****************************************************************************\n"
                 + "***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***\n"
                 + "*****************************************************************************" + AnsiConsole.RESET);
 
-        // Main thread :: for ui
-        AppMenu menu = new AppMenu();
-        menu.run();
+        ui.start();
 
-        // start background thread to process inputs
         databaseProcessing.start();
     }
 

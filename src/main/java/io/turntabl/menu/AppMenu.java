@@ -33,18 +33,20 @@ public class AppMenu extends SharedData {
         System.out.println("####################################################");
     }
 
-
     public void run() {
         while (true) {
             AppMenu.menuListing();
             int option = AppMenu.getUserMenuSelection();
             if (AppMenu.isAnOptionOnMenu(option)) {
                 // MainMenu.operation(option);
-                try {
-                    produce(option);
-                } catch (InterruptedException ignored) { }
+                produce(option);
             } else {
                 System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
