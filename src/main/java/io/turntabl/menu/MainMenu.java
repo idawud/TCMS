@@ -8,22 +8,27 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainMenu {
-    public static void operation(int option) throws SQLException, ClassNotFoundException, IOException {
+    private DataAccess dataAccess = new DataAccess();
+    public void operation(int option) throws SQLException, ClassNotFoundException, IOException {
         switch (option){
             case 1:
-                entry();
+                dataAccess.entry();
                 break;
             case 2:
-                DataAccess.showAllClientsRecords();
+                dataAccess.showAllClientsRecords();
+                //DataAccess.showAllClientsRecords();
                 break;
             case 3:
-                DataAccess.showSearchedClientsRecords();
+                dataAccess.showSearchedClientsRecords();
+                //DataAccess.showSearchedClientsRecords();
                 break;
             case 4:
-                DataAccess.deleteClientRecord();
+                dataAccess.deleteClientRecord();
+                //DataAccess.deleteClientRecord();
                 break;
             case 5:
-                DataAccess.recoverDeleteClientRecord();
+                dataAccess.recoverDeleteClientRecord();
+                //DataAccess.recoverDeleteClientRecord();
                 break;
             case 6:
                 System.exit(0);
@@ -32,14 +37,6 @@ public class MainMenu {
         }
     }
 
-    private static void entry() throws SQLException, ClassNotFoundException {
-        if (DataEntry.toSave()){
-            System.out.println(AnsiConsole.GREEN + "\nClient Added Successfully!!!" + AnsiConsole.RESET);
-        }
-        else{
-            System.out.println(AnsiConsole.RED +"\nSomething went wrong! \nData was not stored!" + AnsiConsole.RESET);
-        }
-    }
 
     public static boolean isAnOptionOnMenu(int option){
         return option >= 1 && option <= 6;
@@ -57,7 +54,6 @@ public class MainMenu {
         return option;
     }
 
-
     public static void menuListing() {
         System.out.println("\n##############\t ENTER: \t##################");
         System.out.println("##\t 1. Enter New Client");
@@ -69,9 +65,4 @@ public class MainMenu {
         System.out.println("####################################################");
     }
 
-    public static void welcome() {
-        System.out.println(AnsiConsole.YELLOW +"*****************************************************************************\n"
-                        + "***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***\n"
-                        + "*****************************************************************************" + AnsiConsole.RESET);
-    }
 }

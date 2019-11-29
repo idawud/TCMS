@@ -20,7 +20,15 @@ public class DataAccess {
         try {
             clientDAO = new ClientDAO(DBType.POSTGRESQL);
         } catch (SQLException | ClassNotFoundException ignored) { }
+    }
 
+    public void entry() throws SQLException, ClassNotFoundException {
+        if (DataEntry.toSave()){
+            System.out.println(AnsiConsole.GREEN + "\nClient Added Successfully!!!" + AnsiConsole.RESET);
+        }
+        else{
+            System.out.println(AnsiConsole.RED +"\nSomething went wrong! \nData was not stored!" + AnsiConsole.RESET);
+        }
     }
 
     public void showAllClientsRecords() throws SQLException {
