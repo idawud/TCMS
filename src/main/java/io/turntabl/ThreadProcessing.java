@@ -4,7 +4,7 @@ import io.turntabl.dataaccess.DataAccess;
 import io.turntabl.menu.AnsiConsole;
 import java.sql.SQLException;
 
-public class BGThread {
+public class ThreadProcessing {
     private DataAccess dataAccess = new DataAccess();
 
     public void operation(int option) throws InterruptedException {

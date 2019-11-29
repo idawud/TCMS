@@ -1,8 +1,7 @@
 package io.turntabl.menu;
 
-import io.turntabl.BGThread;
+import io.turntabl.ThreadProcessing;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class AppMenu  {
@@ -36,12 +35,12 @@ public class AppMenu  {
 
 
     public void run() throws InterruptedException {
-        BGThread bgThread = new BGThread();
+        ThreadProcessing threadProcessing = new ThreadProcessing();
         while (true) {
             AppMenu.menuListing();
             int option = AppMenu.getUserMenuSelection();
             if (AppMenu.isAnOptionOnMenu(option)) {
-                bgThread.operation(option);
+                threadProcessing.operation(option);
             } else {
                 System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
             }
