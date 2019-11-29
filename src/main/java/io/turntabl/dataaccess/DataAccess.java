@@ -14,19 +14,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DataAccess {
-    private static ClientDAO clientDAO;
+    private ClientDAO clientDAO;
 
-    static {
+    public DataAccess(){
         try {
             clientDAO = new ClientDAO(DBType.POSTGRESQL);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException | ClassNotFoundException ignored) { }
+
     }
 
-    public DataAccess(){ }
-
-    public static void showAllClientsRecords() throws SQLException {
+    public void showAllClientsRecords() throws SQLException {
         List<Client> records = clientDAO.getAllClients();
         printRecords(records);
     }
@@ -39,13 +36,13 @@ public class DataAccess {
         }
     }
 
-    public static void showSearchedClientsRecords() throws SQLException {
+    public void showSearchedClientsRecords() throws SQLException {
         String name = DataEntry.getStringInput("Enter Client's name: ");
         List<Client> records = clientDAO.getAllSearchedClients(name);
         printRecords(records);
     }
 
-    public static void deleteClientRecord() throws SQLException {
+    public void deleteClientRecord() throws SQLException {
         String name = DataEntry.getStringInput("Enter Client's Name: ");
 
         List<Client> records = clientDAO.getAllSearchedClients(name);
@@ -69,7 +66,7 @@ public class DataAccess {
     }
 
 
-    public static void recoverDeleteClientRecord() throws SQLException {
+    public void recoverDeleteClientRecord() throws SQLException {
         String name = DataEntry.getStringInput("Enter Client's Name: ");
 
         List<Client> records = clientDAO.getAllSearchedArchivedClients(name);
