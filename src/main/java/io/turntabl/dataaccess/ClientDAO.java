@@ -41,13 +41,13 @@ public class ClientDAO {
 
 
     public List<Client> getAllSearchedClients(String clientName) throws SQLException {
-        String queryString = "SELECT * FROM clients WHERE active = 'true' AND LOWER(name) LIKE ?";
+        String queryString = "SELECT * FROM clients WHERE active = 'true' AND LOWER(client_name) LIKE ?";
         ResultSet rs = getResultSet(queryString, "%" + clientName + "%");
         return getClients(rs);
     }
 
     public List<Client> getAllSearchedArchivedClients(String clientName) throws SQLException {
-        String queryString = "SELECT * FROM clients WHERE active = 'false' AND LOWER(name) LIKE ?";
+        String queryString = "SELECT * FROM clients WHERE active = 'false' AND LOWER(client_name) LIKE ?";
         ResultSet rs = getResultSet(queryString, "%" + clientName + "%");
         return getClients(rs);
     }
