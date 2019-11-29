@@ -4,7 +4,7 @@ import io.turntabl.menu.AnsiConsole;
 import io.turntabl.menu.AppMenu;
 
 public class TCMS {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         Thread databaseProcessing = new Thread(
                 ()-> {

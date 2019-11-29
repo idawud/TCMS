@@ -6,10 +6,10 @@ import io.turntabl.menu.AnsiConsole;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class BGThread {
+public class BGThread extends Thread{
     private DataAccess dataAccess = new DataAccess();
 
-    public void operation(int option) throws SQLException, ClassNotFoundException, IOException {
+    public void operation(int option) throws SQLException, ClassNotFoundException {
         switch (option){
             case 1:
                 dataAccess.entry();
@@ -30,6 +30,13 @@ public class BGThread {
                 System.exit(0);
             default:
                 System.out.println( AnsiConsole.RED + "\nYou Entered an InCorrect Option!" + AnsiConsole.RESET);
+        }
+    }
+
+    @Override
+    public void run(){
+        while (!Thread.interrupted()){
+
         }
     }
 }
