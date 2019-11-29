@@ -1,8 +1,10 @@
 package io.turntabl.menu;
 
+import io.turntabl.SharedData;
+
 import java.util.Scanner;
 
-public class AppMenu{
+public class AppMenu extends SharedData {
 
     public static boolean isAnOptionOnMenu(int option){
         return option >= 1 && option <= 6;
@@ -38,7 +40,9 @@ public class AppMenu{
             int option = AppMenu.getUserMenuSelection();
             if (AppMenu.isAnOptionOnMenu(option)) {
                 // MainMenu.operation(option);
-                System.out.println("Ui");
+                try {
+                    produce(option);
+                } catch (InterruptedException ignored) { }
             } else {
                 System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
             }

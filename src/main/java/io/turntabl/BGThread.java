@@ -2,6 +2,7 @@ package io.turntabl;
 
 import io.turntabl.dataaccess.DataAccess;
 import io.turntabl.menu.AnsiConsole;
+import io.turntabl.menu.AppMenu;
 
 import java.io.IOException;
 import java.sql.SQLException;
