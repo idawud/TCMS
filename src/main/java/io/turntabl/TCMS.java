@@ -20,9 +20,11 @@ public class TCMS {
                 + "***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***\n"
                 + "*****************************************************************************" + AnsiConsole.RESET);
 
+        // Main thread :: for ui
         AppMenu menu = new AppMenu();
         menu.run();
 
+        // start background thread to process inputs
         databaseProcessing.start();
     }
 
