@@ -7,6 +7,7 @@ public class SharedData extends Observable {
 
     public void setOption(int option) {
         synchronized (this) {
+            System.out.println("I'm here....");
             this.option = option;
         }
         setChanged();

@@ -49,6 +49,7 @@ public class AppMenu implements Runnable{
             if (AppMenu.isAnOptionOnMenu(option)) {
                 // MainMenu.operation(option);
                 this.sharedData.setOption(option);
+                System.out.println("set complete");
             } else {
                 System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
             }

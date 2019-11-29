@@ -5,10 +5,10 @@ import io.turntabl.menu.AppMenu;
 
 public class TCMS {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SharedData sharedData = new SharedData();
 
-        Thread databaseProcessing = new Thread(new Consumer(sharedData), "TCMS-DataProcessing");
+        Thread databaseProcessing = new Thread(new Consumer(sharedData, sharedData), "TCMS-DataProcessing");
         Thread ui = new Thread(new AppMenu(sharedData), "TCMS-ui");
 
         // Welcome
@@ -16,8 +16,10 @@ public class TCMS {
                 + "***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***\n"
                 + "*****************************************************************************" + AnsiConsole.RESET);
 
-        ui.start();
+
 
         databaseProcessing.start();
+        Thread.sleep(800);
+        ui.start();
     }
 }

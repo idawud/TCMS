@@ -17,8 +17,8 @@ public class Consumer extends BGThread implements Runnable, Observer {
 
     @Override
     public void run() {
+        update(observable, sharedData);
             while (!Thread.interrupted()){
-                update(observable, sharedData);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -33,9 +33,11 @@ public class Consumer extends BGThread implements Runnable, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        int someVariable = ((SharedData) o).getOption();
+        int option = ((SharedData) o).getOption();
+        System.out.println(option);
+        /*
         try {
             operation(someVariable);
-        } catch (SQLException | ClassNotFoundException ignored) { }
+        } catch (SQLException | ClassNotFoundException ignored) { }*/
     }
 }
