@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class TCMS {
 
-    public static void main(String[] args) throws InterruptedException, SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws InterruptedException {
         AppMenu appMenu = new AppMenu();
 
         // Welcome

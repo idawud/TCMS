@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class BGThread {
     private DataAccess dataAccess = new DataAccess();
 
-    public void operation(int option) throws SQLException, ClassNotFoundException {
+    public void operation(int option) throws InterruptedException {
         switch (option){
             case 1:
                 Thread entry = new Thread(()-> {
@@ -18,6 +18,7 @@ public class BGThread {
                     } catch (ClassNotFoundException ignored) {  }
                 });
                 entry.start();
+                entry.join();
                 break;
             case 2:
                 Thread clientsDisplay = new Thread(()-> {
@@ -26,6 +27,7 @@ public class BGThread {
                     } catch (SQLException ignored) { }
                 });
                 clientsDisplay.start();
+                clientsDisplay.join();
                 break;
             case 3:
                 Thread records = new Thread(()-> {
@@ -34,6 +36,7 @@ public class BGThread {
                     }catch (SQLException ignored) { }
                 });
                 records.start();
+                records.join();
                 break;
             case 4:
                 Thread delete = new Thread(()-> {
@@ -42,6 +45,7 @@ public class BGThread {
                     } catch (SQLException ignored) { }
                 });
                 delete.start();
+                delete.join();
                 break;
             case 5:
                 Thread recover = new Thread(()-> {
@@ -50,6 +54,7 @@ public class BGThread {
                     } catch (SQLException ignored) { }
                 });
                 recover.start();
+                recover.join();
                 break;
             case 6:
                 System.exit(0);

@@ -35,7 +35,7 @@ public class AppMenu  {
     }
 
 
-    public void run() throws SQLException, ClassNotFoundException {
+    public void run() throws InterruptedException {
         BGThread bgThread = new BGThread();
         while (true) {
             AppMenu.menuListing();
