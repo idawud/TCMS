@@ -18,13 +18,13 @@ public class DataAccess {
 
     static {
         try {
-            clientDAO = new ClientDAO();
+            clientDAO = new ClientDAO(DBType.POSTGRESQL);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public DataAccess() throws SQLException, ClassNotFoundException { }
+    public DataAccess(){ }
 
     public static void showAllClientsRecords() throws SQLException {
         List<Client> records = clientDAO.getAllClients();
