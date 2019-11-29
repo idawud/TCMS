@@ -35,9 +35,7 @@ public class ClientDAOTest {
 
     @Before
     public void setup() throws SQLException, ClassNotFoundException, IOException {
-        Class.forName("org.h2.Driver");
         Connection connection = DBConnection.connect(DBType.H2);
-                // DriverManager.getConnection(URL, USERNAME, PASSWORD);
         Statement statement = connection.createStatement();
         clientDAO = new ClientDAO(DBType.H2);
         setup(statement);

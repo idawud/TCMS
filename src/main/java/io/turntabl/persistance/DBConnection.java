@@ -10,14 +10,14 @@ import java.sql.*;
 public class DBConnection {
     private static final String POSTGRESQL_TCMS = "jdbc:postgresql:tcms";
     private static final String H2_TCMS = "jdbc:h2:~/tcmsv1.1";
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
+    private static final String USERNAME = "dawud";
+    private static final String PASSWORD = "dawud";
 
     public static Connection connect(DBType dbType) throws SQLException, ClassNotFoundException {
         switch (dbType){
             case H2:
                 Class.forName("org.h2.Driver");
-                return DriverManager.getConnection(H2_TCMS, USERNAME, PASSWORD);
+                return DriverManager.getConnection(H2_TCMS, "", "");
             case POSTGRESQL:
                 Class.forName("org.postgresql.Driver");
                 return DriverManager.getConnection(POSTGRESQL_TCMS, USERNAME, PASSWORD);
