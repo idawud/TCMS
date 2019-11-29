@@ -3,15 +3,8 @@ package io.turntabl;
 import io.turntabl.menu.AnsiConsole;
 import io.turntabl.menu.AppMenu;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
 public class TCMS {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, InterruptedException {
-        Thread ui = new Thread(
-                 ,
-                "TCMS-DBProcessing"
-        );
+    public static void main(String[] args) throws InterruptedException {
 
         Thread databaseProcessing = new Thread(
                 ()-> {
@@ -19,25 +12,19 @@ public class TCMS {
 
                     }
                 },
-                "TCMS-UI"
+                "TCMS-DataProcessing"
         );
 
-        TCMS tcms = new TCMS();
-        tcms.welcome();
+        // Welcome
+        System.out.println(AnsiConsole.YELLOW +"*****************************************************************************\n"
+                + "***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***\n"
+                + "*****************************************************************************" + AnsiConsole.RESET);
+
         AppMenu menu = new AppMenu();
         menu.run();
 
         databaseProcessing.start();
-        ui.start();
-
-        databaseProcessing.join();
-        ui.join();
     }
 
-    public void welcome() {
-        System.out.println(AnsiConsole.YELLOW +"*****************************************************************************\n"
-                + "***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***\n"
-                + "*****************************************************************************" + AnsiConsole.RESET);
-    }
 
 }
