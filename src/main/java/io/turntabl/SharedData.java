@@ -11,7 +11,7 @@ public class SharedData extends BGThread{
         {
             selection = value;
             wait();
-            System.out.println("Resumed");
+            System.out.println("Produce Resumed");
         }
     }
 
@@ -19,13 +19,12 @@ public class SharedData extends BGThread{
     {
         synchronized(this)
         {
-            // System.out.println("producer thread running");
             try {
                 operation(selection);
             } catch (SQLException | ClassNotFoundException ignored) { }
 
             notify();
-            System.out.println("Resumed");
+            System.out.println("Consume Resumed");
         }
     }
 }
