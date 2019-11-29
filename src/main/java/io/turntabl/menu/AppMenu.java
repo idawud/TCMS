@@ -1,10 +1,10 @@
 package io.turntabl.menu;
 
-import io.turntabl.SharedData;
+import io.turntabl.Consumer;
 
 import java.util.Scanner;
 
-public class AppMenu extends SharedData {
+public class AppMenu extends Consumer {
 
     public static boolean isAnOptionOnMenu(int option){
         return option >= 1 && option <= 6;

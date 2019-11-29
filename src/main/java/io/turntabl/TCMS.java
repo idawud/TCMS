@@ -4,8 +4,9 @@ import io.turntabl.menu.AnsiConsole;
 import io.turntabl.menu.AppMenu;
 
 public class TCMS {
+
     public static void main(String[] args) {
-        Thread databaseProcessing = new Thread(new SharedData(), "TCMS-DataProcessing");
+        Thread databaseProcessing = new Thread(new Consumer(), "TCMS-DataProcessing");
         Thread ui = new Thread(new AppMenu(), "TCMS-ui");
 
         // Welcome
@@ -17,6 +18,4 @@ public class TCMS {
 
         databaseProcessing.start();
     }
-
-
 }
