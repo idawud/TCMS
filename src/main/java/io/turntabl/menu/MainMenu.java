@@ -32,7 +32,7 @@ public class MainMenu {
         }
     }
 
-    private static void entry() throws SQLException, ClassNotFoundException, IOException {
+    private static void entry() throws SQLException, ClassNotFoundException {
         if (DataEntry.toSave()){
             System.out.println(AnsiConsole.GREEN + "\nClient Added Successfully!!!" + AnsiConsole.RESET);
         }

@@ -2,7 +2,6 @@ package io.turntabl.dataaccess;
 
 import io.turntabl.persistance.DBConnection;
 
-import java.net.IDN;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +12,8 @@ import java.util.List;
 public class ClientDAO {
     private Connection connection;
 
-    public ClientDAO() throws SQLException, ClassNotFoundException {
-        this.connection = DBConnection.connect();
+    public ClientDAO(DBType dbType) throws SQLException, ClassNotFoundException {
+        this.connection = DBConnection.connect(dbType);
     }
 
     private ResultSet getResultSet(String queryString, String value) throws SQLException {

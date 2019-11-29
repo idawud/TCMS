@@ -1,26 +1,26 @@
 package io.turntabl.persistance;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import io.turntabl.dataaccess.DBType;
+
 import java.sql.*;
 
 /**
  * @Desc Storing & Retrieving Client Information from a db
  */
 public class DBConnection {
-    private static final String URL = "jdbc:h2:~/tcmsv1.1";
+    private static final String URL = "jdbc:postgresql:tcms";
     private static final String USERNAME = "";
     private static final String PASSWORD = "";
 
-    public static Connection connect() throws SQLException, ClassNotFoundException {
-        Class.forName("org.h2.Driver");
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-    }
-
-    public static Connection connect(String url, String username, String password) throws SQLException, ClassNotFoundException {
-        Class.forName("org.h2.Driver");
-        return DriverManager.getConnection(url, username, password);
+    public static Connection connect(DBType dbType) throws SQLException, ClassNotFoundException {
+        switch (dbType){
+            case POSTGRESQL: Class.forName("org.postgresql.Driver");
+                return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            case H2: Class.forName("org.h2.Driver");
+                return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            default:
+                return DriverManager.getConnection(URL);
+        }
     }
 
     public DBConnection(){ }
