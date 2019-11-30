@@ -14,19 +14,24 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DataAccess {
-    private static ClientDAO clientDAO;
+    private ClientDAO clientDAO;
 
-    static {
+    public DataAccess(){
         try {
-            clientDAO = new ClientDAO();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            clientDAO = new ClientDAO(DBType.POSTGRESQL);
+        } catch (SQLException | ClassNotFoundException ignored) { }
+    }
+
+    public void entry() throws SQLException, ClassNotFoundException {
+        if (DataEntry.toSave()){
+            System.out.println(AnsiConsole.GREEN + "\nClient Added Successfully!!!" + AnsiConsole.RESET);
+        }
+        else{
+            System.out.println(AnsiConsole.RED +"\nSomething went wrong! \nData was not stored!" + AnsiConsole.RESET);
         }
     }
 
-    public DataAccess() throws SQLException, ClassNotFoundException { }
-
-    public static void showAllClientsRecords() throws SQLException {
+    public void showAllClientsRecords() throws SQLException {
         List<Client> records = clientDAO.getAllClients();
         printRecords(records);
     }
@@ -39,13 +44,13 @@ public class DataAccess {
         }
     }
 
-    public static void showSearchedClientsRecords() throws SQLException {
+    public void showSearchedClientsRecords() throws SQLException {
         String name = DataEntry.getStringInput("Enter Client's name: ");
         List<Client> records = clientDAO.getAllSearchedClients(name);
         printRecords(records);
     }
 
-    public static void deleteClientRecord() throws SQLException {
+    public void deleteClientRecord() throws SQLException {
         String name = DataEntry.getStringInput("Enter Client's Name: ");
 
         List<Client> records = clientDAO.getAllSearchedClients(name);
@@ -69,7 +74,7 @@ public class DataAccess {
     }
 
 
-    public static void recoverDeleteClientRecord() throws SQLException {
+    public void recoverDeleteClientRecord() throws SQLException {
         String name = DataEntry.getStringInput("Enter Client's Name: ");
 
         List<Client> records = clientDAO.getAllSearchedArchivedClients(name);

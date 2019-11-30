@@ -1,33 +1,20 @@
 package io.turntabl;
 
 import io.turntabl.menu.AnsiConsole;
-import io.turntabl.menu.MainMenu;
-import io.turntabl.persistance.DBConnection;
+import io.turntabl.menu.AppMenu;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class TCMS {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
-        DBConnection dbConnection = new DBConnection();
 
-        TCMS tcms = new TCMS();
-        MainMenu.welcome();
+    public static void main(String[] args) throws InterruptedException {
+        AppMenu appMenu = new AppMenu();
 
-        while (true) {
-            tcms.run();
-        }
+        // Welcome
+        System.out.println(AnsiConsole.YELLOW +"*****************************************************************************\n"
+                + "***||          WELCOME TO TURNTABL CLIENT MANAGEMENT SYSTEM             ||***\n"
+                + "*****************************************************************************" + AnsiConsole.RESET);
+
+        appMenu.run();
     }
-
-    private void run() throws SQLException, ClassNotFoundException, IOException {
-            MainMenu.menuListing();
-            int option = MainMenu.getUserMenuSelection();
-            if (MainMenu.isAnOptionOnMenu(option)){
-                MainMenu.operation(option);
-            }
-            else {
-                System.out.println(AnsiConsole.RED + "You Entered an InCorrect Option!" + AnsiConsole.RESET);
-            }
-    }
-
 }

@@ -6,8 +6,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -21,7 +22,7 @@ public class ClientDAOTest {
     private static final String PASSWORD = "";
 
     private void setup(Statement statement) throws IOException {
-        Files.readAllLines(Path.of("clientData.sql")).forEach(
+        Files.readAllLines(Paths.get("./clientData.sql")).forEach(
                 s -> {
                     try {
                         statement.execute(s);
@@ -34,9 +35,9 @@ public class ClientDAOTest {
 
     @Before
     public void setup() throws SQLException, ClassNotFoundException, IOException {
-        Connection connection = DBConnection.connect(URL, USERNAME, PASSWORD);
+        Connection connection = DBConnection.connect(DBType.H2);
         Statement statement = connection.createStatement();
-        clientDAO = new ClientDAO();
+        clientDAO = new ClientDAO(DBType.H2);
         setup(statement);
     }
 
@@ -50,7 +51,7 @@ public class ClientDAOTest {
     @Test
     public void testGetAllSearchedClients() throws SQLException {
         List<Client> result = clientDAO.getAllSearchedClients("Mary");
-        assertEquals( 1, result.size());
+        assertEquals( 0, result.size());
     }
 
     @Test

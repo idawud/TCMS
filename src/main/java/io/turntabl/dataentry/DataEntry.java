@@ -1,8 +1,8 @@
 package io.turntabl.dataentry;
 
+import io.turntabl.dataaccess.DBType;
 import io.turntabl.persistance.DBConnection;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +11,11 @@ import java.util.Scanner;
 public class DataEntry {
     private static final Scanner INPUT = new Scanner(System.in);
 
-    public  static boolean toSave() throws SQLException, ClassNotFoundException, IOException {
+    public  static boolean toSave() throws SQLException, ClassNotFoundException {
         List<String> clientInformation = getClientInformation();
         DBConnection cip = new DBConnection();
-        return ( cip.store( clientInformation.get(0),
+        return ( !cip.store( DBType.POSTGRESQL,
+                            clientInformation.get(0),
                             clientInformation.get(1),
                             clientInformation.get(2),
                             clientInformation.get(3)

@@ -1,5 +1,6 @@
 package io.turntabl.persistance;
 
+import io.turntabl.dataaccess.DBType;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,18 +36,18 @@ public class ClientInformationPersistenceTest {
 
     @Test
     public void store_successful() throws SQLException, ClassNotFoundException {
-        when(connection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
+        when(connection.store(DBType.H2,"dawud", "achimota-accra", "052768256", "dawud@one.email"))
                 .thenReturn(true);
-        assertTrue(connection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"));
+        assertTrue(connection.store(DBType.H2,"dawud", "achimota-accra", "052768256", "dawud@one.email"));
     }
 
     @Test
     public void store_unsuccessfulThrowsException() throws SQLException, ClassNotFoundException {
-        when(connection.store("dawud", "achimota-accra", "052768256", "dawud@one.email"))
+        when(connection.store(DBType.H2,"dawud", "achimota-accra", "052768256", "dawud@one.email"))
                 .thenThrow(new SQLException());
 
         exception.expect(SQLException.class);
-        connection.store("dawud", "achimota-accra", "052768256", "dawud@one.email");
+        connection.store(DBType.H2,"dawud", "achimota-accra", "052768256", "dawud@one.email");
     }
 
 }
